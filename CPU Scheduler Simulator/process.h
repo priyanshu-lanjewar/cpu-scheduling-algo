@@ -7,6 +7,7 @@
 #ifndef _VECTOR_
 #include "vector"
 #endif
+#include "iomanip"
 class process
 {
 private:
@@ -22,9 +23,6 @@ private:
 
 	/// BT : Burst Time
 	int BT;
-
-	/// PR : Priority
-	int PR;
 
 	/// CT : Completion Time
 	int CT;
@@ -49,16 +47,14 @@ public:
 	/// </summary>
 	/// <param name="AT">: Time of Arrival of Process</param>
 	/// <param name="BT">: Execution time of Process</param>
-	/// <param name="PR">: Priority of a Process</param>
-	process(int ID,int AT, int BT, int PR);
+	process(int ID,int AT, int BT);
 
 	/// <summary>
 	/// Function to initialize process variable already Declared with AT=BT=PR=0
 	/// </summary>
 	/// <param name="AT">: Time of Arrival of Process</param>
 	/// <param name="BT">: Execution time of Process</param>
-	/// <param name="PR">: Priority of a Process</param>
-	void create(int ID, int AT, int BT, int PR=0);
+	void create(int ID, int AT, int BT);
 
 	/// <summary>
 	/// Setter Function For Completion Time
@@ -88,6 +84,15 @@ public:
 	/// </summary>
 	void calculate_TAT();
 
+	/// <summary>
+	/// Prints Process Info Such as ID, AT, BT, CT, RT, WT, TAT
+	/// </summary>
+	void printInfo();
+
+	/// <summary>
+	/// Getter Function For Process ID
+	/// </summary>
+	/// <returns></returns>
 	int get_ID();
 
 	/// <summary>
@@ -101,12 +106,6 @@ public:
 	/// </summary>
 	/// <returns>BT : Burst/Execution Time of Process</returns>
 	int get_BT();
-
-	/// <summary>
-	/// Getter Function for Priority
-	/// </summary>
-	/// <returns>PR : Priority of Process</returns>
-	int get_PR();
 
 	/// <summary>
 	/// Getter Function for Completion Time
@@ -185,24 +184,28 @@ public:
 	/// <param name="p">: Vector of Process</param>
 	/// <returns>Average Turn Around Time of inputed process</returns>
 	friend double average_TAT(std::vector<process> p);
+
+	/// <summary>
+	/// Print Table of Processes
+	/// </summary>
+	/// <param name="p">: Vector of Process</param>
+	friend void printProcessTable(std::vector<process> p);
 };
 
 
 /// Defination of all the member function declared above
 
-process::process(int ID=0,int AT = 0, int BT = 0, int PR = 0) {
+process::process(int ID=0,int AT = 0, int BT = 0) {
 	this->ID = ID;
 	this->AT = AT;
 	this->BT = BT;
-	this->PR = PR;
 	this->NT = BT;
 }
 
-void process::create(int ID, int AT, int BT, int PR) {
+void process::create(int ID, int AT, int B) {
 	this->ID = ID;
 	this->AT = AT;
 	this->BT = BT;
-	this->PR = PR;
 	this->NT = BT;
 }
 
@@ -230,6 +233,18 @@ void process::calculate_TAT()
 	TAT = CT - AT;
 }
 
+void process::printInfo() {
+	std::cout << "==================================" << std::endl;
+	std::cout << "Process ID : " << ID << std::endl;
+	std::cout << "Arrival Time (AT) : " << AT << std::endl;
+	std::cout << "Burst Time (BT) : " << BT << std::endl;
+	std::cout << "Completion Time (CT) : " << CT << std::endl;
+	std::cout << "Response Time (RT) : " << RT << std::endl;
+	std::cout << "Waiting Time (WT) : " << WT << std::endl;
+	std::cout << "Turn Around Time (TAT) : " << TAT << std::endl;
+	std::cout << "==================================";
+}
+
 int process::get_ID() {
 	return ID;
 }
@@ -242,11 +257,6 @@ int process::get_AT()
 int process::get_BT()
 {
 	return BT;
-}
-
-int process::get_PR()
-{
-	return PR;
 }
 
 int process::get_CT()
@@ -341,5 +351,22 @@ double average_TAT(std::vector<process> p) {
 	}
 	return sum / p.size();
 }
+
+void printProcessTable(std::vector<process> p) {
+	std::cout << "  ____________________________________________________" << std::endl;
+	std::cout << "  |  PID  |  AT  |  BT  |  CT  |  RT  |  WT  |  TAT  |" << std::endl;
+	for (int i = 0; i < p.size(); i++) {
+		std::cout << "  |--------------------------------------------------|" << std::endl;
+		std::cout << "  |" << std::setw(5) << p[i].get_ID();
+		std::cout << "  |" << std::setw(4) << p[i].get_AT();
+		std::cout << "  |" << std::setw(4) << p[i].get_BT();
+		std::cout << "  |" << std::setw(4) << p[i].get_CT();
+		std::cout << "  |" << std::setw(4) << p[i].get_RT();
+		std::cout << "  |" << std::setw(4) << p[i].get_WT();
+		std::cout << "  |" << std::setw(5) << p[i].get_TAT() << "  |"<<std::endl;
+	}
+	std::cout << "  '--------------------------------------------------'" << std::endl;
+}
+
 
 #endif

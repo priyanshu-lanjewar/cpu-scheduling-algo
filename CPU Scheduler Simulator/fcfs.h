@@ -198,6 +198,9 @@ void fcfs::perform_fcfs() {
 
 	/// Computing Average Turn Around Time
 	compute_ATAT();
+
+	std::cout << std::endl;
+	printProcessTable(table);
 }
 
 std::vector<int> fcfs::get_gantt_chart()
