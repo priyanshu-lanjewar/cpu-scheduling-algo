@@ -94,9 +94,10 @@ public:
 	sjf(std::vector<process> table);
 
 	/// <summary>
-	/// Function to Perform SJF
+	/// Function to Perform FCFS
 	/// </summary>
-	void perform_sjf();
+	/// <returns>vector : Process Table with updated values</returns>
+	std::vector<process> perform_sjf();
 
 	/// <summary>
 	/// Getter Function for Gantt Chart
@@ -131,7 +132,7 @@ void sjf::compute_ATAT() {
 }
 
 
-void sjf::perform_sjf() {
+std::vector<process>  sjf::perform_sjf() {
 
 	/// Initializing Time t = 0
 	int t = 0;
@@ -263,6 +264,8 @@ void sjf::perform_sjf() {
 
 	/// Computing Average Turn Around Time
 	compute_ATAT();
+
+	return table;
 }
 
 std::vector<int> sjf::get_gantt_chart() {

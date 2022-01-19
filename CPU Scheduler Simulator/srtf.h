@@ -94,9 +94,10 @@ public:
 	srtf(std::vector<process> table);
 
 	/// <summary>
-	/// Function to Perform SRTF
+	/// Function to Perform FCFS
 	/// </summary>
-	void perform_srtf();
+	/// <returns>vector : Process Table with updated values</returns>
+	std::vector<process> perform_srtf();
 
 	/// <summary>
 	/// Getter Function for Gantt Chart
@@ -131,7 +132,7 @@ void srtf::compute_ATAT() {
 }
 
 
-void srtf::perform_srtf() {
+std::vector<process>  srtf::perform_srtf() {
 
 	/// Initializing Time t = 0
 	int t = 0;
@@ -277,6 +278,8 @@ void srtf::perform_srtf() {
 
 	/// Computing Average Turn Around Time
 	compute_ATAT();
+
+	return table;
 }
 
 std::vector<int> srtf::get_gantt_chart() {

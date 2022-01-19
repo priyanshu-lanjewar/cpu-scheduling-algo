@@ -92,7 +92,8 @@ public:
 	/// <summary>
 	/// Function to Perform FCFS
 	/// </summary>
-	void perform_fcfs();
+	/// <returns>vector : Process Table with updated values</returns>
+	std::vector<process> perform_fcfs();
 
 	/// <summary>
 	/// Getter Function for Gantt Chart
@@ -125,7 +126,7 @@ void fcfs::compute_ATAT() {
 	ATAT = average_TAT(table);
 }
 
-void fcfs::perform_fcfs() {
+std::vector<process>  fcfs::perform_fcfs() {
 	
 	/// Sorting Process accoding to their Arrival Time.
 	sort(table.begin(), table.end(), cmpAT());
@@ -200,7 +201,8 @@ void fcfs::perform_fcfs() {
 	compute_ATAT();
 
 	std::cout << std::endl;
-	printProcessTable(table);
+
+	return table;
 }
 
 std::vector<int> fcfs::get_gantt_chart()

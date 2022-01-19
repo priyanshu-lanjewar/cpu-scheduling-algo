@@ -35,12 +35,14 @@ void main(array<System::String^>^ args)
    
     
     fcfs f(p);
-    f.perform_fcfs();
+    p = f.perform_fcfs();
     gc = f.get_gantt_chart();
+    printProcessTable(p);
     print_gantt_chart(gc);
     print_stats(f);
     
     std::cout << std::endl;
+
 /*
     sjf sj(p);
     sj.perform_sjf();

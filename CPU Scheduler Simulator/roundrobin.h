@@ -78,9 +78,10 @@ public:
 	roundrobin(std::vector<process> table,int TQ);
 
 	/// <summary>
-	/// Function to Perform Round Robin
+	/// Function to Perform FCFS
 	/// </summary>
-	void perform_roundrobin();
+	/// <returns>vector : Process Table with updated values</returns>
+	std::vector<process> perform_roundrobin();
 
 	/// <summary>
 	/// Getter Function for Gantt Chart
@@ -115,7 +116,7 @@ void roundrobin::compute_ATAT() {
 	ATAT = average_TAT(table);
 }
 
-void roundrobin::perform_roundrobin() {
+std::vector<process>  roundrobin::perform_roundrobin() {
 
 	/// Initializing Time t = 0
 	int t = 0;
@@ -257,6 +258,8 @@ void roundrobin::perform_roundrobin() {
 
 	/// Computing Average Turn Around Time
 	compute_ATAT();
+
+	return table;
 }
 
 std::vector<int> roundrobin::get_gantt_chart() {
