@@ -23,15 +23,6 @@
 /// 
 
 /// <summary>
-/// Struct To Compare 2 Process on basis of their Burst time
-/// </summary>
-struct cmpBT {
-	bool operator()(process& x, process& y) const {
-			return x.get_BT() < y.get_BT();
-	}
-};
-
-/// <summary>
 /// Class to Simulate Shortest Job First Algorithm
 /// </summary>
 class sjf {
@@ -111,6 +102,15 @@ public:
 	/// </summary>
 	/// <param name="sj">: Instance of class sjf</param>
 	friend void print_stats(sjf sj);
+};
+
+/// <summary>
+/// Struct To Compare 2 Process on basis of their Burst time
+/// </summary>
+struct cmpBT {
+	bool operator()(process& x, process& y) const {
+		return x.get_BT() < y.get_BT();
+	}
 };
 
 /// Defination of functions declared above

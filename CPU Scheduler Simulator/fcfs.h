@@ -23,15 +23,6 @@
 /// 
 
 /// <summary>
-/// Struct To Compare 2 Process on basis of their Arrival time
-/// </summary>
-struct cmpAT {
-	bool operator()(process& x, process& y) const {
-		return x.get_AT() < y.get_AT();
-	}
-};
-
-/// <summary>
 /// Class to Simulate First Come First Serve Algorithm
 /// </summary>
 class fcfs
@@ -106,6 +97,15 @@ public:
 	/// </summary>
 	/// <param name="f">: Instance of class fcfs</param>
 	friend void print_stats(fcfs f);
+};
+
+/// <summary>
+/// Struct To Compare 2 Process on basis of their Arrival time
+/// </summary>
+struct cmpAT {
+	bool operator()(process& x, process& y) const {
+		return x.get_AT() < y.get_AT();
+	}
 };
 
 /// Defination of functions declared above

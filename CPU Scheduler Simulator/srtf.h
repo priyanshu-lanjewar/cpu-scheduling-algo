@@ -23,15 +23,6 @@
 /// 
 
 /// <summary>
-/// Struct To Compare 2 Process on basis of their Burst time
-/// </summary>
-struct cmpNT {
-	bool operator()(process& x, process& y) const {
-		return x.get_NT() < y.get_NT();
-	}
-};
-
-/// <summary>
 /// Class to Simulate Shortest Remaining First Algorithm
 /// </summary>
 class srtf {
@@ -112,6 +103,16 @@ public:
 	/// <param name="sr">: Instance of class srtf</param>
 	friend void print_stats(srtf sr);
 };
+
+/// <summary>
+/// Struct To Compare 2 Process on basis of their Burst time
+/// </summary>
+struct cmpNT {
+	bool operator()(process& x, process& y) const {
+		return x.get_NT() < y.get_NT();
+	}
+};
+
 
 /// Defination of functions declared above
 

@@ -1,0 +1,269 @@
+#pragma once
+#ifndef _CLI_
+#define _CLI_
+#ifndef _IOSTREAM_
+#include "iostream"
+#endif // !_IOSTREAM_
+#ifndef _VECTOR_
+#include "vector"
+#endif
+#ifndef _CPUSCHALGO_
+#include "cpuschalgo.h"
+#endif // !_CPUSCHALGO_
+
+/// <summary>
+/// climode to implement commandline interface
+/// </summary>
+class climode {
+private:
+	/// <summary>
+	/// Private attribute of climode
+	/// </summary>
+	
+	/// menu command
+	static int cmd;
+
+	/// input process table
+	static std::vector<process> table_in;
+	
+	/// output process table returned from fcfs
+	static std::vector<process> table_fcfs;
+
+	/// output process table returned from sjf
+	static std::vector<process> table_sjf;
+
+	/// output process table returned from srtf
+	static std::vector<process> table_srtf;
+
+	/// output process table returned from rra
+	static std::vector<process> table_rra;
+
+	/// gantt chart for fcfs
+	static std::vector<int> gc_fcfs;
+
+	/// gantt chart for sjf
+	static std::vector<int> gc_sjf;
+
+	/// gantt chart for srtf
+	static std::vector<int> gc_srtf;
+
+	/// gantt chart for rra
+	static std::vector<int> gc_rra;
+
+	/// <summary>
+	/// Function to create process table
+	/// </summary>
+	static void _input();
+
+	/// <summary>
+	/// function to simulate fcfs
+	/// </summary>
+	static void _fcfs();
+
+	/// <summary>
+	/// function to simulate sjf
+	/// </summary>
+	static void _sjf();
+
+	/// <summary>
+	/// function to simulate srtf
+	/// </summary>
+	static void _srtf();
+
+	/// <summary>
+	/// function to simulate rra
+	/// </summary>
+	static void _rra();
+public:
+
+	/// <summary>
+	/// Publi memberof climode
+	/// </summary>
+
+	/// <summary>
+	/// default constructor
+	/// </summary>
+	climode();
+
+	/// <summary>
+	/// Function to start menu driven utility
+	/// </summary>
+	static void start();
+};
+
+
+/// <summary>
+/// initializer
+/// </summary>
+int climode::cmd = 0;
+std::vector<process> climode::table_in = {};
+std::vector<process> climode::table_fcfs = {};
+std::vector<process> climode::table_sjf = {};
+std::vector<process> climode::table_srtf = {};
+std::vector<process> climode::table_rra = {};
+std::vector<int> climode::gc_fcfs = {};
+std::vector<int> climode::gc_sjf = {};
+std::vector<int> climode::gc_srtf = {};
+std::vector<int> climode::gc_rra = {};
+
+
+void climode::_input() {
+	table_in.clear();
+	std::cout << "=== Creating Process Table ===" << std::endl;
+	int n;
+	std::cout << "Enter Number Of Processes : ";
+	std::cin >> n;
+	for (int i = 0; i < n; i++) {
+		int pid, at, bt;
+		std::cout << "Enter Details of Process " << (i + 1) << " : " << std::endl;
+		std::cout << "Process ID : ";
+		std::cin >> pid;
+		std::cout << "Process Arrival Time : ";
+		std::cin >> at;
+		std::cout << "Process Burst Time : ";
+		std::cin >> bt;
+		table_in.push_back(process(pid, at, bt));
+	}
+	std::cout << "=== Process Table Created ===" << std::endl;
+}
+
+void climode::_fcfs() {
+	std::cout << std::endl;
+	std::cout << "=== FIRST COME FIRST SERVE CPU SCHEDULING ALGORITHM ===" << std::endl;
+	if (table_in.size()<1) {
+		std::cout << "No Process Found To Perform FCFS\nCreate Process Table And Try Again" << std::endl;
+		return;
+	}
+	fcfs f(table_in);
+	table_fcfs = f.perform_fcfs();
+	std::cout << "Process Table : " << std::endl;
+	printProcessTable(table_fcfs);
+	std::cout << std::endl;
+	std::cout << "Gantt Chart : " << std::endl;
+	gc_fcfs = f.get_gantt_chart();
+	print_gantt_chart(gc_fcfs);
+	std::cout << std::endl;
+	std::cout << "Statistics : " << std::endl;
+	print_stats(f);
+	std::cout << std::endl;
+	std::cout << "=== FIRST COME FIRST SERVE CPU SCHEDULING ALGORITHM ===" << std::endl;
+}
+
+void climode::_sjf() {
+	std::cout << std::endl;
+	std::cout << "=== SHORTEST JOB FIRST CPU SCHEDULING ALGORITHM ===" << std::endl;
+	if (table_in.size()<1) {
+		std::cout << "No Process Found To Perform SJF\nCreate Process Table And Try Again" << std::endl;
+		return;
+	}
+	sjf sf(table_in);
+	table_sjf = sf.perform_sjf();
+	std::cout << "Process Table : " << std::endl;
+	printProcessTable(table_sjf);
+	std::cout << std::endl;
+	std::cout << "Gantt Chart : " << std::endl;
+	gc_sjf = sf.get_gantt_chart();
+	print_gantt_chart(gc_sjf);
+	std::cout << std::endl;
+	std::cout << "Statistics : " << std::endl;
+	print_stats(sf);
+	std::cout << std::endl;
+	std::cout << "=== SHORTEST JOB FIRST CPU SCHEDULING ALGORITHM ===" << std::endl;
+}
+
+void climode::_srtf() {
+	std::cout << "=== SHORTEST REMAINING TIME FIRST CPU SCHEDULING ALGORITHM ===" << std::endl;
+	std::cout << std::endl;
+	if (table_in.size()<1) {
+		std::cout << "No Process Found To Perform SRTF\nCreate Process Table And Try Again" << std::endl;
+		return;
+	}
+	srtf sf(table_in);
+	table_srtf = sf.perform_srtf();
+	std::cout << "Process Table : " << std::endl;
+	printProcessTable(table_srtf);
+	std::cout << std::endl;
+	std::cout << "Gantt Chart : " << std::endl;
+	gc_srtf = sf.get_gantt_chart();
+	print_gantt_chart(gc_srtf);
+	std::cout << std::endl;
+	std::cout << "Statistics : " << std::endl;
+	print_stats(sf);
+	std::cout << std::endl;
+	std::cout << "=== SHORTEST REMAINING TIME FIRST CPU SCHEDULING ALGORITHM ===" << std::endl;
+}
+
+void climode::_rra() {
+	std::cout << "=== ROUND ROBIN CPU SCHEDULING ALGORITHM ===" << std::endl;
+	std::cout << std::endl;
+	if (table_in.size()<1) {
+		std::cout << "No Process Found To Perform RRA\nCreate Process Table And Try Again" << std::endl;
+		return;
+	}
+	std::cout << "Enter Time Quantum : ";
+	int tq;
+	std::cin >> tq;
+	std::cout << std::endl;
+	roundrobin r(table_in,tq);
+	table_rra = r.perform_roundrobin();
+	std::cout << "Process Table : " << std::endl;
+	printProcessTable(table_rra);
+	std::cout << std::endl;
+	std::cout << "Time Quantum : " << tq << std::endl;
+	std::cout << std::endl;
+	std::cout << "Gantt Chart : " << std::endl;
+	gc_rra = r.get_gantt_chart();
+	print_gantt_chart(gc_rra);
+	std::cout << std::endl;
+	std::cout << "Statistics : " << std::endl;
+	print_stats(r);
+	std::cout << std::endl;
+	std::cout << "=== ROUND ROBIN CPU SCHEDULING ALGORITHM ===" << std::endl;
+}
+
+climode::climode() {
+
+}
+void climode::start() {
+	std::cout << "====== CPU Scheduling Algorithm Simulator ======" << std::endl;
+	while (true) {
+		std::cout << std::endl;
+		std::cout << "Enter : " << std::endl;
+		std::cout << " > 0 : Create Process Table " << std::endl;
+		std::cout << " > 1 : Simulate First Come First Serve Scheduling Algorithm" << std::endl;
+		std::cout << " > 2 : Simulate Shortest Job First Scheduling Algorithm" << std::endl;
+		std::cout << " > 3 : Simulate Shortest Remaining Time First Scheduling Algoithm" << std::endl;
+		std::cout << " > 4 : Simulate Round Robin Scheduling Algorithm" << std::endl;
+		std::cout << " > 5 : Exit " << std::endl;
+		std::cout << "Input Goes Here =>  " ;
+
+		std::cin >> cmd;
+		switch (cmd)
+		{
+		default:
+			std::cout << "Invalid Input!!! Please Try Again!!!" << std::endl;
+			break;
+		case 0:
+			_input();
+			break;
+		case 1:
+			_fcfs();
+			break;
+		case 2:
+			_sjf();
+			break;
+		case 3:
+			_srtf();
+			break;
+		case 4:
+			_rra();
+			break;
+		case 5:
+			exit(0);
+			break;
+		}
+
+	}
+}
+
+#endif // !_CLI_

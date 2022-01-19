@@ -124,6 +124,9 @@
     <ClCompile Include="MyForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="climode.h">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </ClInclude>
     <ClInclude Include="cpuschalgo.h" />
     <ClInclude Include="fcfs.h" />
     <ClInclude Include="gcp.h" />

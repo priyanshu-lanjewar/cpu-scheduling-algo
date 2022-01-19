@@ -47,5 +47,8 @@
     <ClInclude Include="roundrobin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="climode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

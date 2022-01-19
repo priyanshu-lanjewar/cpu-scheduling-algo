@@ -7,7 +7,7 @@
 /// </summary>
 /// <param name="gc"></param>
 void print_gantt_chart(std::vector<int> gc) {
-	std::cout << "Gantt Chart =>" << std::endl;
+	std::cout << std::endl;
     int k = 0,i=0;
     while (k <= gc.size()) {
         int m = 0;
