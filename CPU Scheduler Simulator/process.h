@@ -7,7 +7,13 @@
 #ifndef _VECTOR_
 #include "vector"
 #endif
+#ifndef _ALGORITHM_
+#include "algorithm"
+#endif 
+#ifndef _IOMANIP_
 #include "iomanip"
+#endif
+
 class process
 {
 private:
@@ -192,6 +198,14 @@ public:
 	friend void printProcessTable(std::vector<process> p);
 };
 
+/// <summary>
+/// Struct To Compare 2 Process on basis of their Process ID
+/// </summary>
+struct cmpID {
+	bool operator()(process& x, process& y) const {
+		return x.get_ID() < y.get_ID();
+	}
+};
 
 /// Defination of all the member function declared above
 
@@ -353,6 +367,8 @@ double average_TAT(std::vector<process> p) {
 }
 
 void printProcessTable(std::vector<process> p) {
+
+	sort(p.begin(),p.end(),cmpID());
 	std::cout << "  ____________________________________________________" << std::endl;
 	std::cout << "  |  PID  |  AT  |  BT  |  CT  |  RT  |  WT  |  TAT  |" << std::endl;
 	for (int i = 0; i < p.size(); i++) {
