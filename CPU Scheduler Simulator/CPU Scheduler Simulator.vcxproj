@@ -131,6 +131,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="process.h" />
+    <ClInclude Include="roundrobin.h" />
     <ClInclude Include="sjf.h" />
     <ClInclude Include="srtf.h" />
   </ItemGroup>

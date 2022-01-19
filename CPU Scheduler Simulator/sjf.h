@@ -38,7 +38,7 @@ class sjf {
 private:
 
 	/// <summary>
-	/// Private Attribute of Process
+	/// Private Attribute of SJF
 	/// </summary>
 	
 	/// Vector for Storing Process Information 
@@ -185,11 +185,11 @@ void sjf::perform_sjf() {
 			/// CPU will be idle
 			t++;
 
-			/// pusing 0 in gantt chart as CPU is idle
-			gantt_chart.push_back(0);
+			/// pusing -1 in gantt chart as CPU is idle
+			gantt_chart.push_back(-1);
 		}
-		/// if aq is empty but bq is not => ( process available to execute new)
-		///                                 ( process are yet to come or all process finished)
+		/// if aq is empty but bq is not => ( process available to execute new process 
+		///                                 are yet to come or no new process left)
 		/// if aq is not empty but bq is empty => process available to be pushed in bq
 		/// if none of them empty => process available to execute as well as push in bq 
 		else 

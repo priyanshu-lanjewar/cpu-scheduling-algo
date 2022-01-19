@@ -44,5 +44,8 @@
     <ClInclude Include="cpuschalgo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="roundrobin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

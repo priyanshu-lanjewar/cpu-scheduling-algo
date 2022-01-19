@@ -21,7 +21,8 @@ void CLI(void) {
 void main(array<System::String^>^ args)
 {
 
-    process p1(1,0, 11,0), p2(2,0, 8,0), p3(3,12, 2,0), p4(4,2, 6,0), p5(5,9, 16,0);
+    //process p1(1, 0, 11, 0), p2(2, 0, 8, 0), p3(3, 12, 2, 0), p4(4, 2, 6, 0), p5(5, 9, 16, 0);
+    process p1(1,0, 5,0), p2(2,1, 6,0), p3(3,2, 3,0), p4(4,3, 3,0), p5(5,4, 5,0),p6(6,6,4,0);
     
     std::vector<process> p;
     p.push_back(p1);
@@ -29,6 +30,7 @@ void main(array<System::String^>^ args)
     p.push_back(p3);
     p.push_back(p4);
     p.push_back(p5);
+    p.push_back(p6);
     std::vector<int> gc;
    
     
@@ -45,6 +47,18 @@ void main(array<System::String^>^ args)
     gc = sj.get_gantt_chart();
     print_gantt_chart(gc);
     print_stats(sj);
+    
+    srtf sr(p);
+    sr.perform_srtf();
+    gc = sr.get_gantt_chart();
+    print_gantt_chart(gc);
+    print_stats(sr);
+   
+    roundrobin r(p,4);
+    r.perform_roundrobin();
+    gc = r.get_gantt_chart();
+    print_gantt_chart(gc);
+    print_stats(r);
 
     /*
     int mode;

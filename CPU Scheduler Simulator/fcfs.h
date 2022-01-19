@@ -39,7 +39,7 @@ class fcfs
 private:
 
 	/// <summary>
-	/// Private Attribute of Process
+	/// Private Attribute of FCFS
 	/// </summary>
 	
 
@@ -80,7 +80,7 @@ private:
 public:
 
 	/// <summary>
-	/// Public Attribute of Process
+	/// Public Attribute of FCFS
 	/// </summary>
 
 	/// <summary>
@@ -152,9 +152,10 @@ void fcfs::perform_fcfs() {
 		/// If current time is less that arrival timing of process
 		/// process is yet to arrive and hence CPU will be idle.
 		while (t < p.get_AT()) {
-			/// Idle state of cpu is assumed as 0 in this program
+
+			/// Idle state of cpu is assumed as -1 in this program
 			/// Pushing 0 in gantt chart as cpu is idle
-			gantt_chart.push_back(0);
+			gantt_chart.push_back(-1);
 			t++;
 		}
 

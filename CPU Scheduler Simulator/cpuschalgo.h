@@ -22,6 +22,10 @@
 #include "srtf.h"
 #endif // !_SRTF_
 
+#ifndef _ROUND_ROBIN_
+#include "roundrobin.h"
+#endif // !_ROUND_ROBIN_
+
 
 #endif // !_CPUSCHALGO_
 

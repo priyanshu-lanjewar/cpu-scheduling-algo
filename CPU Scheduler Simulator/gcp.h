@@ -18,7 +18,7 @@ void print_gantt_chart(std::vector<int> gc) {
         m = 0;
         std::cout << std::endl << "   ";
         for (i; i<gc.size() && m < 10;m++, i++) {
-            if (gc[i])
+            if (gc[i]>=0)
                 printf("| P%d ", gc[i]);
             else
                 printf("|IDLE");

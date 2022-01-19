@@ -1,1 +1,292 @@
 #pragma once
+
+#ifndef _SRTF_
+#define _SRTF_
+#ifndef _PROCESS_
+#include "process.h"
+#endif
+#ifndef _VECTOR_
+#include "vector"
+#endif
+#ifndef _QUEUE_
+#include "queue"
+#endif
+#ifndef _ALGORITHM_
+#include "algorithm"
+#endif
+
+/// <summary>
+/// SRTF :
+/// This Class Contains components to simulate
+/// Shortest Remaining Time First CPU Scheduling Algorithm 
+/// </summary>
+/// 
+
+/// <summary>
+/// Struct To Compare 2 Process on basis of their Burst time
+/// </summary>
+struct cmpNT {
+	bool operator()(process& x, process& y) const {
+		return x.get_NT() < y.get_NT();
+	}
+};
+
+/// <summary>
+/// Class to Simulate Shortest Remaining First Algorithm
+/// </summary>
+class srtf {
+private:
+
+	/// <summary>
+	/// Private Attribute of SRTF
+	/// </summary>
+
+	/// Vector for Storing Process Information 
+	std::vector<process> table;
+
+	/// Vector for Storing Gantt Chart
+	std::vector<int> gantt_chart;
+
+	/// Queue to store all the process temporarily
+	std::queue<process> tq;
+
+	/// Queue to store all the arrived process on or after time t
+	std::queue<process> aq;
+
+	/// vector containing process sorted according to their burst time
+	std::vector<process> rq;
+
+	/// Average Waiting Time for the processes execurting SRTF
+	double AWT;
+
+	/// Average Response Time for the processes execurting SRTF
+	double ART;
+
+	/// Average Turn Around Time for the processes execurting SRTF
+	double ATAT;
+
+
+	/// <summary>
+	/// Function to Compute Average Waiting Time
+	/// </summary>
+	void compute_AWT();
+
+	/// <summary>
+	/// Function to Compute Average Response Time
+	/// </summary>
+	void compute_ART();
+
+	/// <summary>
+	/// Function to Compute Average Turn Around Time
+	/// </summary>
+	void compute_ATAT();
+
+public:
+
+	/// <summary>
+	/// Public Attribute of Process
+	/// </summary>
+
+	/// <summary>
+	/// Constructor for srtf
+	/// </summary>
+	/// <param name="table">: vector of process</param>
+	srtf(std::vector<process> table);
+
+	/// <summary>
+	/// Function to Perform SRTF
+	/// </summary>
+	void perform_srtf();
+
+	/// <summary>
+	/// Getter Function for Gantt Chart
+	/// </summary>
+	/// <returns>Gantt Chart</returns>
+	std::vector<int> get_gantt_chart();
+
+
+	/// <summary>
+	/// Function to Print Statistics like Average Waiting Time, Average Response Time and Average Turn Around Time.
+	/// </summary>
+	/// <param name="sr">: Instance of class srtf</param>
+	friend void print_stats(srtf sr);
+};
+
+/// Defination of functions declared above
+
+srtf::srtf(std::vector<process> table) {
+	this->table = table;
+}
+
+void srtf::compute_AWT() {
+	AWT = average_WT(table);
+}
+
+void srtf::compute_ART() {
+	ART = average_RT(table);
+}
+
+void srtf::compute_ATAT() {
+	ATAT = average_TAT(table);
+}
+
+
+void srtf::perform_srtf() {
+
+	/// Initializing Time t = 0
+	int t = 0;
+
+	/// Sorting Processes according to their Arrival Time
+	sort(table.begin(), table.end(), cmpAT());
+
+	/// Pushing The process in tq: temp queue
+	for (int i = 0; i < table.size(); i++) {
+		tq.push(table[i]);
+	}
+
+	/// storing size of table in c which is also equal to number of process
+	int c = table.size();
+
+
+	table.clear();
+
+	/// As we have to execute c process, unless c = 0, loop will run
+	while (c) {
+
+		/// Storing size/ number of process present in tq into tqs
+		int tqs = tq.size();
+
+		/// checking arrival time of all process in tq
+		for (int i = 0; i < tqs; i++) {
+			process p = tq.front();
+
+			/// if arrival time of process p is <= current time
+			if (p.get_AT() <= t) {
+
+				/// pushing process p in aq : arrived queue 
+				aq.push(p);
+
+				// poping that process from tq
+				tq.pop();
+			}
+			/// if arrival time of p > current time
+			else {
+
+				/// poping it from front of tq and pushing it to back
+				tq.push(tq.front());
+				tq.pop();
+			}
+		}
+
+		/// if aq is empty => (no process arrived till now ) and
+		/// if rq is empty => (no process available to execute)
+		if (aq.empty() && rq.empty()) {
+
+			/// CPU will be idle
+			t++;
+
+			/// pusing - in gantt chart as CPU is idle
+			gantt_chart.push_back(-1);
+		}
+
+		/// if aq is empty but rq is not =>  process available to execute new process
+		///                                  are yet to come or no new process left)
+		/// if aq is not empty but rq is empty => process available to be pushed in rq
+		/// if none of them empty => process available to execute as well as push in rq 
+		else
+		{
+			int k = aq.size();
+			for (int i = 0; i < k; i++) {
+				process p = aq.front();
+
+				/// pushing all the k prosess present in aq into rq
+				rq.push_back(p);
+
+				/// poping out process from aq
+				aq.pop();
+			}
+
+			/// Sorting all the arrived process according to their Remaining / Need Time
+			sort(rq.begin(), rq.end(), cmpNT());
+
+			/// As process with least remaining time is at 0th location
+			// executing that process
+			process p = rq[0];
+
+			/// if Burst Time is equal to Need/ Remaining Time
+			/// then it means process is getting cpu for first time
+			/// therefore updating response time
+			if (p.get_BT() == p.get_NT())
+				p.set_RT(t - p.get_AT());
+
+			/// if remaining time is 0
+			if (p.get_NT() == 0) {
+
+				/// Number of process left to execute completly decremented.
+				c--;
+
+				/// we are required to pop out the executed process from rq
+				/// which is present at 0th index, as we can only pop element
+				/// from back in vector, reversing bq and poping from back
+				std::reverse(rq.begin(), rq.end());
+				rq.pop_back();
+				/// No need to reverse again as it will be sorted again 
+				/// according to their Remaining / Need time
+				/// as process execution complets at time t,
+				
+				/// updating Completion time as t
+				p.set_CT(t);
+
+				/// Calculating Turn around Time For Current Process
+				p.calculate_TAT();
+
+				/// Calculating Waiting Time For Current Process
+				p.calculate_WT();
+
+				/// Pushing this Process Back to Table
+				table.push_back(p);
+			}
+			else {
+
+				/// we are required to pop out the executed process from rq
+				/// which is present at 0th index, as we can only pop element
+				/// from back in vector, reversing bq and poping from back
+				std::reverse(rq.begin(), rq.end());
+				rq.pop_back();
+				
+				/// Incrementing time
+				t++;
+				
+				/// pushing process id of executing process in gantt chart
+				gantt_chart.push_back(p.get_ID());
+				
+				/// decrementing need time as it has executed for 1 time unit
+				p.set_NT(p.get_NT() - 1);
+				
+				/// Pushing Back The Process as it hasn't executed completly
+				rq.push_back(p);
+			}
+		}
+	}
+
+	/// Computing Average Response Time
+	compute_ART();
+
+	/// Computing Average Waiting Time
+	compute_AWT();
+
+	/// Computing Average Turn Around Time
+	compute_ATAT();
+}
+
+std::vector<int> srtf::get_gantt_chart() {
+	return gantt_chart;
+}
+
+void print_stats(srtf sr) {
+	std::cout << "STATISTICS OF SHORTEST REMAINING TIME FIRST => " << std::endl;
+	std::cout << "Average Response Time : " << sr.ART << std::endl;
+	std::cout << "Average Waiting Time : " << sr.AWT << std::endl;
+	std::cout << "Average Turn Around Time : " << sr.ATAT << std::endl;
+}
+#endif
