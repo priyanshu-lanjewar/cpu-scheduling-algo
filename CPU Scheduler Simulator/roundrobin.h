@@ -1,0 +1,274 @@
+#pragma once
+#ifndef _ROUND_ROBIN_
+#define _ROUND_ROBIN_
+#ifndef _PROCESS_
+#include "process.h"
+#endif
+#ifndef _VECTOR_
+#include "vector"
+#endif
+#ifndef _QUEUE_
+#include "queue"
+#endif
+#ifndef _ALGORITHM_
+#include "algorithm"
+#endif
+
+/// <summary>
+/// Class to Simulate Round Robin Algorithm
+/// </summary>
+class roundrobin {
+private:
+
+
+	/// <summary>
+	/// Private Attribute of RoundRobin
+	/// </summary>
+
+	/// Time Quantam for Round Robin Scheduling 
+	int TQ;
+
+	/// Vector for Storing Process Information 
+	std::vector<process> table;
+
+	/// Queue to store all the process temporarily
+	std::queue<process> tq;
+
+	/// Queue to store all the arrived process on or after time t similar to ready queue
+	std::queue<process> rq;
+
+	/// Vector for Storing Gantt Chart
+	std::vector<int> gantt_chart;
+
+	/// Average Waiting Time for the processes execurting Round Robin
+	double AWT;
+
+	/// Average Response Time for the processes execurting Round Robin
+	double ART;
+
+	/// Average Turn Around Time for the processes execurting Round Robin
+	double ATAT;
+
+	/// <summary>
+	/// Function to Compute Average Waiting Time
+	/// </summary>
+	void compute_AWT();
+
+	/// <summary>
+	/// Function to Compute Average Response Time
+	/// </summary>
+	void compute_ART();
+
+	/// <summary>
+	/// Function to Compute Average Turn Around Time
+	/// </summary>
+	void compute_ATAT();
+
+public:
+	
+	/// <summary>
+	/// Public Attribute of Round Robin
+	/// </summary>
+
+	/// <summary>
+	/// Constructor for roundrobin
+	/// </summary>
+	/// <param name="table">: vector of process</param>
+	/// <param name="TQ">: Time Quantam</param>
+	roundrobin(std::vector<process> table,int TQ);
+
+	/// <summary>
+	/// Function to Perform Round Robin
+	/// </summary>
+	void perform_roundrobin();
+
+	/// <summary>
+	/// Getter Function for Gantt Chart
+	/// </summary>
+	/// <returns>Gantt Chart</returns>
+	std::vector<int> get_gantt_chart();
+
+	/// <summary>
+	/// Function to Print Statistics like Average Waiting Time, Average Response Time and Average Turn Around Time.
+	/// </summary>
+	/// <param name="f">: Instance of class roundrobin</param>
+	friend void print_stats(roundrobin r);
+
+};
+
+/// Defination of functions declared above
+
+roundrobin::roundrobin(std::vector<process> table, int TQ) {
+	this->table = table;
+	this->TQ = TQ;
+}
+
+void roundrobin::compute_AWT() {
+	AWT = average_WT(table);
+}
+
+void roundrobin::compute_ART() {
+	ART = average_RT(table);
+}
+
+void roundrobin::compute_ATAT() {
+	ATAT = average_TAT(table);
+}
+
+void roundrobin::perform_roundrobin() {
+
+	/// Initializing Time t = 0
+	int t = 0;
+
+	/// Time Quantam Checker will take values from 0 to TQ
+	int ttq = TQ;
+
+	/// Sorting process according to time quantam
+	sort(table.begin(), table.end(), cmpAT());
+
+	/// Pushing process in tq: temp queue
+	for (int i = 0; i < table.size(); i++) {
+		tq.push(table[i]);
+	}
+
+	/// c is number of process
+	int c = table.size();
+
+	table.clear();
+
+	/// As c process are to be executed, unless c = 0, loop will run
+	while (c!=0)
+	{
+		/// Storing size/ number of process present in tq into tqs
+		int tqs = tq.size();
+
+		/// checking arrival time of all process in tq
+		for (int i = 0; i < tqs; i++) {
+			process p = tq.front();
+
+			/// if arrival time of process p is <= current time
+			if (p.get_AT() <= t) {
+
+				/// pushing process p in rq : ready queue 
+				rq.push(p);
+
+				// poping that process from tq
+				tq.pop();
+			}
+			else {
+
+				/// poping it from front of tq and pushing it to back
+				tq.push(tq.front());
+				tq.pop();
+			}
+			
+		}
+
+		/// if ready queue is empty => no process arrived yet
+		if (rq.empty()) {
+		
+			/// incrementing time
+			t++;
+
+			/// as cpu is in idle state, pushing -1 in gantt chart
+			gantt_chart.push_back(-1);
+		}
+		/// if ready queue is not empty => process available to execute
+		else {
+
+			/// p is a pointer to process present at front of ready queue
+			process *p = &(rq.front());
+
+			/// if time quantum counter is not zero
+			if (ttq != 0) {
+				
+				/// if burst time = time required for completion of execution then 
+				/// it means its first response time
+				/// updating response time
+				if (p->get_NT() == p->get_BT())
+					p->set_RT(t-p->get_AT());
+
+				/// if process need time requirement is not zero 
+				if (p->get_NT() != 0) {
+
+					/// execute process
+					p->set_NT(p->get_NT() - 1);
+
+					/// updating gantt chart
+					gantt_chart.push_back(p->get_ID());
+					
+					/// decrementing time quantum checker 
+					ttq--;
+
+					/// incrementing time
+					t++;
+				}
+
+				/// if process need time is zero
+				else {
+
+					/// as need time = 0, process has completly executed
+					/// decrementing process count c
+					c--;
+
+					/// poping out the process from ready queue
+					rq.pop();
+
+					/// updating completion time
+					p->set_CT(t);
+
+					/// Calculating Turn around Time For Current Process
+					p->calculate_TAT();
+
+					/// Calculating Waiting Time For Current Process
+					p->calculate_WT();
+
+					/// Pushing this Process Back to Table
+					table.push_back(*p);
+
+					/// Updating time quantum checker
+					ttq = TQ;
+				}
+			}
+
+			/// if time quantum counter is zero
+			else {
+
+				/// updateing time quantum counter
+				ttq = TQ;
+
+				/// if process need time is not zero => process is not finished but executed for time = TQ
+				if (p->get_NT() != 0) {
+
+					/// poping out the process and pushing it in end of ready queue
+					process tp = rq.front();
+					rq.pop();
+					rq.push(tp);
+				}
+			}
+		}
+	}
+	
+	/// Computing Average Response Time
+	compute_ART();
+
+	/// Computing Average Waiting Time
+	compute_AWT();
+
+	/// Computing Average Turn Around Time
+	compute_ATAT();
+}
+
+std::vector<int> roundrobin::get_gantt_chart() {
+	return gantt_chart;
+}
+
+void print_stats(roundrobin r) {
+	std::cout << "STATISTICS OF ROUND ROBIN ALGORITHM => " << std::endl;
+	std::cout << "Average Response Time : " << r.ART << std::endl;
+	std::cout << "Average Waiting Time : " << r.AWT << std::endl;
+	std::cout << "Average Turn Around Time : " << r.ATAT << std::endl;
+};
+
+
+#endif // !_ROUND_ROBIN_
