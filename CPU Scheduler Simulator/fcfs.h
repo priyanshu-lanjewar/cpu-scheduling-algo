@@ -2,10 +2,19 @@
 
 #ifndef _FCFS_
 #define _FCFS_
+#ifndef _PROCESS_
 #include "process.h"
+#endif
+#ifndef _VECTOR_
 #include "vector"
+#endif
+#ifndef _QUEUE_
 #include "queue"
+#endif
+#ifndef _ALGORITHM_
 #include "algorithm"
+#endif
+
 /// <summary>
 /// FCFS :
 /// This Class Contains components to simulate
@@ -13,30 +22,92 @@
 /// </summary>
 /// 
 
+/// <summary>
+/// Struct To Compare 2 Process on basis of their Arrival time
+/// </summary>
 struct cmpAT {
 	bool operator()(process& x, process& y) const {
 		return x.get_AT() < y.get_AT();
 	}
 };
 
+/// <summary>
+/// Class to Simulate First Come First Serve Algorithm
+/// </summary>
 class fcfs
 {
 private:
+
+	/// <summary>
+	/// Private Attribute of Process
+	/// </summary>
+	
+
+	/// Vector for Storing Process Information  
 	std::vector<process> table;
+
+	/// Vector for Storing Gantt Chart
 	std::vector<int> gantt_chart;
+
+	/// This is just a queue named as readyqueue but its role is just to store the Process that are arrived.
+	/// In this code its function may or may not be as same as actual ready queue workds.
 	std::queue<process> readyqueue;
+
+	/// Average Waiting Time for the processes execurting FCFS
 	double AWT;
+
+	/// Average Response Time for the processes execurting FCFS
 	double ART;
+
+	/// Average Turn Around Time for the processes execurting FCFS
 	double ATAT;
+
+	/// <summary>
+	/// Function to Compute Average Waiting Time
+	/// </summary>
 	void compute_AWT();
+
+	/// <summary>
+	/// Function to Compute Average Response Time
+	/// </summary>
 	void compute_ART();
+
+	/// <summary>
+	/// Function to Compute Average Turn Around Time
+	/// </summary>
 	void compute_ATAT();
+
 public:
+
+	/// <summary>
+	/// Public Attribute of Process
+	/// </summary>
+
+	/// <summary>
+	/// Constructor for fcfs
+	/// </summary>
+	/// <param name="table">: vector of process</param>
 	fcfs(std::vector<process> table);
+
+	/// <summary>
+	/// Function to Perform FCFS
+	/// </summary>
 	void perform_fcfs();
+
+	/// <summary>
+	/// Getter Function for Gantt Chart
+	/// </summary>
+	/// <returns>Gantt Chart</returns>
 	std::vector<int> get_gantt_chart();
+
+	/// <summary>
+	/// Function to Print Statistics like Average Waiting Time, Average Response Time and Average Turn Around Time.
+	/// </summary>
+	/// <param name="f">: Instance of class fcfs</param>
 	friend void print_stats(fcfs f);
 };
+
+/// Defination of functions declared above
 
 fcfs::fcfs(std::vector<process> table) {
 	this->table = table;
@@ -55,33 +126,76 @@ void fcfs::compute_ATAT() {
 }
 
 void fcfs::perform_fcfs() {
+	
+	/// Sorting Process accoding to their Arrival Time.
 	sort(table.begin(), table.end(), cmpAT());
+
+	/// Pushing the process in readyqueue
 	for (int i = 0; i!=table.size(); i++) {
 		readyqueue.push(table[i]);
 	}
+
+
 	table.clear();
+	
+	/// Initializing Time t = 0
 	int t = 0;
+
+	/// Unless readyqueue will become empty, our loop will run so 
+	/// that all process executes completly
 	while (!readyqueue.empty()) {
+
+		/// Popingout first process
 		process p = readyqueue.front();
 		readyqueue.pop();
+
+		/// If current time is less that arrival timing of process
+		/// process is yet to arrive and hence CPU will be idle.
 		while (t < p.get_AT()) {
+			/// Idle state of cpu is assumed as 0 in this program
+			/// Pushing 0 in gantt chart as cpu is idle
 			gantt_chart.push_back(0);
 			t++;
 		}
+
+		/// As the process starts execution for the first time t,
+		/// response time will be updated here as RT = T - AT
 		p.set_RT(t - p.get_AT());
+
+		/// NT = need time, if time requirement / need of process is not zero
+		/// it will keep on executing and time needed to execute will decrement
 		while (p.get_NT() != 0) {
 			
+			/// pushing process id of executing process in gantt chart
 			gantt_chart.push_back(p.get_ID());
+
+			/// decrementing need time as it has executed for 1 time unit
 			p.set_NT(p.get_NT() - 1);
 			t++;
 		}
+
+		/// once need time is 0, it has executed completly and hence exit loop
+		/// as process execution complets at time t,
+		/// updating Completion time as t
 		p.set_CT(t);
+
+		/// Calculating Turn around Time For Current Process
 		p.calculate_TAT();
+
+		/// Calculating Waiting Time For Current Process
 		p.calculate_WT();
+
+		/// Pushing this Process Back to Table
 		table.push_back(p);
 	}
+	
+	/// Computing Average Response Time
 	compute_ART();
+
+	/// Computing Average Waiting Time
 	compute_AWT();
+
+	/// Computing Average Turn Around Time
 	compute_ATAT();
 }
 

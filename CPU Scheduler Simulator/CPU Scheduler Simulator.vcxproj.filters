@@ -35,10 +35,13 @@
     <ClInclude Include="gcp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stats.h">
+    <ClInclude Include="sjf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sjf.h">
+    <ClInclude Include="srtf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cpuschalgo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

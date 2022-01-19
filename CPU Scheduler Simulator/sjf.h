@@ -14,35 +14,105 @@
 #ifndef _ALGORITHM_
 #include "algorithm"
 #endif
-#ifndef _STATS_
-#include "stats.h"
-#endif
 
+/// <summary>
+/// SJF :
+/// This Class Contains components to simulate
+/// Shortest Job First CPU Scheduling Algorithm 
+/// </summary>
+/// 
+
+/// <summary>
+/// Struct To Compare 2 Process on basis of their Burst time
+/// </summary>
 struct cmpBT {
 	bool operator()(process& x, process& y) const {
 			return x.get_BT() < y.get_BT();
 	}
 };
 
+/// <summary>
+/// Class to Simulate Shortest Job First Algorithm
+/// </summary>
 class sjf {
 private:
+
+	/// <summary>
+	/// Private Attribute of Process
+	/// </summary>
+	
+	/// Vector for Storing Process Information 
 	std::vector<process> table;
+
+	/// Vector for Storing Gantt Chart
 	std::vector<int> gantt_chart;
+
+	/// Queue to store all the process temporarily
 	std::queue<process> tq;
+
+	/// Queue to store all the arrived process on or after time t
 	std::queue<process> aq;
+
+	/// vector containing process sorted according to their burst time
 	std::vector<process> bq;
+
+	/// Average Waiting Time for the processes execurting SJF
 	double AWT;
+
+	/// Average Response Time for the processes execurting SJF
 	double ART;
+
+	/// Average Turn Around Time for the processes execurting SJF
 	double ATAT;
+
+
+	/// <summary>
+	/// Function to Compute Average Waiting Time
+	/// </summary>
 	void compute_AWT();
+
+	/// <summary>
+	/// Function to Compute Average Response Time
+	/// </summary>
 	void compute_ART();
+
+	/// <summary>
+	/// Function to Compute Average Turn Around Time
+	/// </summary>
 	void compute_ATAT();
+
 public:
+
+	/// <summary>
+	/// Public Attribute of Process
+	/// </summary>
+	
+	/// <summary>
+	/// Constructor for sjf
+	/// </summary>
+	/// <param name="table">: vector of process</param>
 	sjf(std::vector<process> table);
+
+	/// <summary>
+	/// Function to Perform SJF
+	/// </summary>
 	void perform_sjf();
+
+	/// <summary>
+	/// Getter Function for Gantt Chart
+	/// </summary>
+	/// <returns>Gantt Chart</returns>
 	std::vector<int> get_gantt_chart();
+
+
+	/// <summary>
+	/// Function to Print Statistics like Average Waiting Time, Average Response Time and Average Turn Around Time.
+	/// </summary>
+	/// <param name="sj">: Instance of class sjf</param>
 	friend void print_stats(sjf sj);
 };
+
+/// Defination of functions declared above
 
 sjf::sjf(std::vector<process> table) {
 	this->table = table;
@@ -62,61 +132,136 @@ void sjf::compute_ATAT() {
 
 
 void sjf::perform_sjf() {
+
+	/// Initializing Time t = 0
 	int t = 0;
+	
+	/// Sorting Processes according to their Arrival Time
 	sort(table.begin(), table.end(), cmpAT());
+	
+	/// Pushing The process in tq: temp queue
 	for (int i = 0; i < table.size(); i++) {
-		//std::cout << " " << table[i].get_ID();
 		tq.push(table[i]);
 	}
+
+	/// storing size of table in c which is also equal to number of process
 	int c = table.size();
+
+
 	table.clear();
+
+	/// As we have to execute c process, unless c = 0, loop will run
 	while (c) {
 		
+		/// Storing size/ number of process present in tq into tqs
 		int tqs = tq.size();
+
+		/// checking arrival time of all process in tq
 		for (int i = 0; i < tqs; i++) {
 			process p = tq.front();
+
+			/// if arrival time of process p is <= current time
 			if (p.get_AT() <= t) {
+				
+				/// pushing process p in aq : arrived queue 
 				aq.push(p);
+
+				// poping that process from tq
 				tq.pop();
 			}
+			/// if arrival time of p > current time
 			else {
+
+				/// poping it from front of tq and pushing it to back
 				tq.push(tq.front());
 				tq.pop();
 			}
 		}
+
+		/// if aq is empty => (no process arrived till now ) and
+		/// if bq is empty => (no process available to execute)
 		if (aq.empty() && bq.empty()) {
+			
+			/// CPU will be idle
 			t++;
+
+			/// pusing 0 in gantt chart as CPU is idle
 			gantt_chart.push_back(0);
-		}else 
+		}
+		/// if aq is empty but bq is not => ( process available to execute new)
+		///                                 ( process are yet to come or all process finished)
+		/// if aq is not empty but bq is empty => process available to be pushed in bq
+		/// if none of them empty => process available to execute as well as push in bq 
+		else 
 		{
 			
 			int k = aq.size();
 			for (int i = 0; i < k; i++) {
 				process p = aq.front();
+
+				/// pushing all the k prosess present in aq into bq
 				bq.push_back(p);
+				
+				/// poping out process from aq
 				aq.pop();
 			}
 
+            /// Sorting all the arrived process according to their burst time
 			sort(bq.begin(), bq.end(), cmpBT());
 			
+			/// selecting 1st process in vector / process with least burst time
 			process p = bq[0];
+
+			/// As the process starts execution for the first time t,
+			/// response time will be updated here as RT = T - AT
 			p.set_RT(t - p.get_AT());
+
+			/// NT = need time, if time requirement / need of process is not zero
+			/// it will keep on executing and time needed to execute will decrement
 			while (p.get_NT() != 0) {
+				
+				/// pushing process id of executing process in gantt chart
 				gantt_chart.push_back(p.get_ID());
+				
+				/// decrementing need time as it has executed for 1 time unit
 				p.set_NT(p.get_NT() - 1);
 				t++;
 			}
+			/// once need time is 0, it has executed completly and hence exit loop
+			/// as one process completed execution, left process = c-1
+			/// decrementing value of c
 			c--;
+
+			/// we are required to pop out the executed process from bq
+			/// which is present at 0th index, as we can only pop element
+			/// from back in vector, reversing bq and poping from back
 			std::reverse(bq.begin(), bq.end());
 			bq.pop_back();
+			/// No need to reverse again as it will be sorted again 
+			/// according to their burst time
+			
+			/// as process execution complets at time t,
+			/// updating Completion time as t
 			p.set_CT(t);
+
+			/// Calculating Turn around Time For Current Process
 			p.calculate_TAT();
+
+			/// Calculating Waiting Time For Current Process
 			p.calculate_WT();
+
+			/// Pushing this Process Back to Table
 			table.push_back(p);
 		}
 	}
+
+	/// Computing Average Response Time
 	compute_ART();
+
+	/// Computing Average Waiting Time
 	compute_AWT();
+
+	/// Computing Average Turn Around Time
 	compute_ATAT();
 }
 

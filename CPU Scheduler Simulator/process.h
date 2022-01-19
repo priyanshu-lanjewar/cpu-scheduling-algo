@@ -45,7 +45,7 @@ private:
 public:
 	/// Public Members of process class
 	/// <summary>
-	/// Constructor Decleration with AT, BT and PR
+	/// Constructor for process
 	/// </summary>
 	/// <param name="AT">: Time of Arrival of Process</param>
 	/// <param name="BT">: Execution time of Process</param>
@@ -53,7 +53,7 @@ public:
 	process(int ID,int AT, int BT, int PR);
 
 	/// <summary>
-	/// Create Function to initialize process variable already Declared with AT=BT=OR=0
+	/// Function to initialize process variable already Declared with AT=BT=PR=0
 	/// </summary>
 	/// <param name="AT">: Time of Arrival of Process</param>
 	/// <param name="BT">: Execution time of Process</param>

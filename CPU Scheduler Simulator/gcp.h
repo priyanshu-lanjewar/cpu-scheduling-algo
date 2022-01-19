@@ -27,6 +27,7 @@ void print_gantt_chart(std::vector<int> gc) {
         while (m++<10)
         {
             printf("|IDLE");
+            _sleep(1000);
         }
         std::cout << "|" << std::endl << std::endl;
         

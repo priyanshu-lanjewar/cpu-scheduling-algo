@@ -1,10 +1,7 @@
 #include "MyForm.h"
 #include "iostream"
-#include "process.h"
-#include "fcfs.h"
-#include "sjf.h"
-#include "gcp.h"
-#include "stats.h"
+#include "cpuschalgo.h"
+
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -25,6 +22,7 @@ void main(array<System::String^>^ args)
 {
 
     process p1(1,0, 11,0), p2(2,0, 8,0), p3(3,12, 2,0), p4(4,2, 6,0), p5(5,9, 16,0);
+    
     std::vector<process> p;
     p.push_back(p1);
     p.push_back(p2);

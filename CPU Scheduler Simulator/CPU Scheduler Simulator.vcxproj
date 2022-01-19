@@ -124,6 +124,7 @@
     <ClCompile Include="MyForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cpuschalgo.h" />
     <ClInclude Include="fcfs.h" />
     <ClInclude Include="gcp.h" />
     <ClInclude Include="MyForm.h">
@@ -131,7 +132,7 @@
     </ClInclude>
     <ClInclude Include="process.h" />
     <ClInclude Include="sjf.h" />
-    <ClInclude Include="stats.h" />
+    <ClInclude Include="srtf.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">
