@@ -3,17 +3,17 @@
 #ifndef _SJF_
 #define _SJF_
 #ifndef _PROCESS_
-#include "process.h"
-#endif
+#include "process"
+#endif // !_PROCESS_
 #ifndef _VECTOR_
 #include "vector"
-#endif
+#endif // !_VECTOR_
 #ifndef _QUEUE_
 #include "queue"
-#endif
+#endif // !_QUEUE_
 #ifndef _ALGORITHM_
 #include "algorithm"
-#endif
+#endif // !_ALGORITHM_
 
 /// <summary>
 /// SJF :
@@ -278,4 +278,4 @@ void print_stats(sjf sj) {
 	std::cout << "Average Waiting Time : " << sj.AWT << std::endl;
 	std::cout << "Average Turn Around Time : " << sj.ATAT << std::endl;
 }
-#endif
+#endif // !_SJF_

@@ -3,29 +3,28 @@
 #define _CPUSCHALGO_
 
 #ifndef _PROCESS_
-#include "process.h"
+#include "process"
 #endif // !_PROCESS_
 
 #ifndef _FCFS_
-#include "fcfs.h"
+#include "fcfs"
 #endif // !_FCFS_
 
 #ifndef _SJF_
-#include "sjf.h"
+#include "sjf"
 #endif // !_SJF_
 
 #ifndef _GCP_
-#include "gcp.h"
+#include "gcp"
 #endif // !_GCP_
 
 #ifndef _SRTF_
-#include "srtf.h"
+#include "srtf"
 #endif // !_SRTF_
 
 #ifndef _ROUND_ROBIN_
-#include "roundrobin.h"
+#include "roundrobin"
 #endif // !_ROUND_ROBIN_
-
 
 #endif // !_CPUSCHALGO_
 

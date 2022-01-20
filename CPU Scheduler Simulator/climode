@@ -6,9 +6,9 @@
 #endif // !_IOSTREAM_
 #ifndef _VECTOR_
 #include "vector"
-#endif
+#endif // !_VECTOR_
 #ifndef _CPUSCHALGO_
-#include "cpuschalgo.h"
+#include "cpuschalgo"
 #endif // !_CPUSCHALGO_
 
 /// <summary>

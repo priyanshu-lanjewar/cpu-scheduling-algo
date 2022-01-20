@@ -3,16 +3,16 @@
 #define _PROCESS_
 #ifndef _CSTDARG_
 #include "cstdarg"
-#endif
+#endif // !_CSTDARG_
 #ifndef _VECTOR_
 #include "vector"
-#endif
+#endif // !_VECTOR_
 #ifndef _ALGORITHM_
 #include "algorithm"
-#endif 
+#endif // !_ALGORITHM_
 #ifndef _IOMANIP_
 #include "iomanip"
-#endif
+#endif // !_IOMANIP_
 
 class process
 {
@@ -385,4 +385,4 @@ void printProcessTable(std::vector<process> p) {
 }
 
 
-#endif
+#endif // !_PROCESS_

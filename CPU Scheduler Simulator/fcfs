@@ -1,19 +1,18 @@
 #pragma once
-
 #ifndef _FCFS_
 #define _FCFS_
 #ifndef _PROCESS_
-#include "process.h"
-#endif
+#include "process"
+#endif // !_PROCESS_
 #ifndef _VECTOR_
 #include "vector"
-#endif
+#endif // !_VECTOR_
 #ifndef _QUEUE_
 #include "queue"
-#endif
+#endif // !_QUEUE_
 #ifndef _ALGORITHM_
 #include "algorithm"
-#endif
+#endif // !_ALGORITHM_
 
 /// <summary>
 /// FCFS :
@@ -218,4 +217,4 @@ void print_stats(fcfs f) {
 };
 
 
-#endif
+#endif // !_FCFS_

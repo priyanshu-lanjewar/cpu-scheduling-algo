@@ -26,28 +26,28 @@
     <ClInclude Include="MyForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fcfs.h">
+    <ClInclude Include="fcfs">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="process.h">
+    <ClInclude Include="process">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gcp.h">
+    <ClInclude Include="gcp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sjf.h">
+    <ClInclude Include="sjf">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="srtf.h">
+    <ClInclude Include="srtf">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cpuschalgo.h">
+    <ClInclude Include="cpuschalgo">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="roundrobin.h">
+    <ClInclude Include="roundrobin">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="climode.h">
+    <ClInclude Include="climode">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

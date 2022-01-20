@@ -2,17 +2,17 @@
 #ifndef _ROUND_ROBIN_
 #define _ROUND_ROBIN_
 #ifndef _PROCESS_
-#include "process.h"
-#endif
+#include "process"
+#endif // !_PROCESS_
 #ifndef _VECTOR_
 #include "vector"
-#endif
+#endif // !_VECTOR_
 #ifndef _QUEUE_
 #include "queue"
-#endif
+#endif // !_QUEUE_
 #ifndef _ALGORITHM_
 #include "algorithm"
-#endif
+#endif // !_ALGORITHM_
 
 /// <summary>
 /// Class to Simulate Round Robin Algorithm

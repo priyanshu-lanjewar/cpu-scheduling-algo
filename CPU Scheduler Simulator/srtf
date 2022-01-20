@@ -3,17 +3,17 @@
 #ifndef _SRTF_
 #define _SRTF_
 #ifndef _PROCESS_
-#include "process.h"
-#endif
+#include "process"
+#endif // !_PROCESS_
 #ifndef _VECTOR_
 #include "vector"
-#endif
+#endif // !_VECTOR_
 #ifndef _QUEUE_
 #include "queue"
-#endif
+#endif // !_QUEUE_
 #ifndef _ALGORITHM_
 #include "algorithm"
-#endif
+#endif // !_ALGORITHM_
 
 /// <summary>
 /// SRTF :
@@ -293,4 +293,4 @@ void print_stats(srtf sr) {
 	std::cout << "Average Waiting Time : " << sr.AWT << std::endl;
 	std::cout << "Average Turn Around Time : " << sr.ATAT << std::endl;
 }
-#endif
+#endif // !_SRTF_

@@ -1,6 +1,13 @@
 #pragma once
+#ifndef _GCP_
+#define _GCP_
 #include "iostream"
+#ifndef _PROCESS_
+#include "process"
+#endif // !_PROCESS_
+#ifndef _VECTOR_
 #include "vector"
+#endif // !_VECTOR_
 
 /// <summary>
 /// Function to Print Gantt Chart
@@ -33,3 +40,4 @@ void print_gantt_chart(std::vector<int> gc) {
         
     }
 }
+#endif // !_GCP_
