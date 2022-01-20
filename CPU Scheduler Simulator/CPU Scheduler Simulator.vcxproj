@@ -134,6 +134,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="process" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="roundrobin" />
     <ClInclude Include="sjf" />
     <ClInclude Include="srtf" />
@@ -142,6 +143,12 @@
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CPU Scheduler Simulator.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="cpuicn.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
