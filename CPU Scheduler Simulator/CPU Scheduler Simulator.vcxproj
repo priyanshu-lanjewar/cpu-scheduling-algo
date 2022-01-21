@@ -110,6 +110,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -121,34 +122,45 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MyForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="climode">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </ClInclude>
     <ClInclude Include="cpuschalgo" />
+    <ClInclude Include="createprocesstable.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="fcfs" />
     <ClInclude Include="gcp" />
-    <ClInclude Include="MyForm.h">
+    <ClInclude Include="gui.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="process" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="roundrobin" />
+    <ClInclude Include="simulator.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="sjf" />
     <ClInclude Include="srtf" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MyForm.resx">
-      <DependentUpon>MyForm.h</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CPU Scheduler Simulator.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="cpuicn.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="createprocesstable.resx">
+      <DependentUpon>createprocesstable.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui.resx">
+      <DependentUpon>gui.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="simulator.resx">
+      <DependentUpon>simulator.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

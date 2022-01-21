@@ -1,4 +1,5 @@
-#include "MyForm.h"
+
+#include"gui.h"
 #include "iostream"
 #include "climode"
 
@@ -10,23 +11,20 @@ using namespace System::Windows::Forms;
 void GUI(void) {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
-    CPUSchedulerSimulator::MyForm form;
-    Application::Run(% form);
+    CPUSchedulerSimulator::gui f;
+    Application::Run(% f);
 }
 
 void CLI(void) {
-    std::cout << "CLI MODE STARTED" << std::endl;
+    climode::start();
 }
 
 void main(array<System::String^>^ args)
-{
-    climode::start();
-/*
+{   
     int mode;
     std::cout << "Enter 0 to continue with CLI Mode\nEnter 1 to continue with GUI Mode"<<std::endl;
     std::cout << "Input Goes Here => ";
     std::cin >> mode;
     mode ? GUI() : CLI();
-    */
 }
 
