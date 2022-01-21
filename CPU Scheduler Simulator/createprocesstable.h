@@ -34,24 +34,39 @@ namespace CPUSchedulerSimulator {
 
 
 
+
+
+
 		public:
 
 
 
-			   static bool tableCreated = false;
+			static bool tableCreated = false;
+			void enableBtn() {
+				add->Enabled = true;
+				save->Text = "Save";
+				clear->Enabled = true;
+			}
+			void disableBtn() {
+				add->Enabled = false;
+				save->Text = "Close";
+				clear->Enabled = false;
+			}
+			void initTable() {
+				tb->Rows->Clear();
+				tableCreated = false;
+				
+			}
 		public:	createprocesstable(void)
 			{
 				//t = 
 				InitializeComponent();
-
 				for (int i = 0; i < t->size(); i++) {
 					System::String^ d1 = "" + t->at(i).get_ID();
 					System::String^ d2 = "" + t->at(i).get_AT();
 					System::String^ d3 = "" + t->at(i).get_BT();
 					tb->Rows->Add(d1, d2, d3);
 				}
-				
-				
 				//
 			}
 
@@ -103,6 +118,10 @@ namespace CPUSchedulerSimulator {
 			/// </summary>
 			void InitializeComponent(void)
 			{
+				System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+				System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+				System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+				System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 				this->add = (gcnew System::Windows::Forms::Button());
 				this->pid_t = (gcnew System::Windows::Forms::TextBox());
 				this->at_t = (gcnew System::Windows::Forms::TextBox());
@@ -118,9 +137,11 @@ namespace CPUSchedulerSimulator {
 				// 
 				// add
 				// 
+				this->add->Font = (gcnew System::Drawing::Font(L"Ubuntu Mono", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+					static_cast<System::Byte>(0)));
 				this->add->Location = System::Drawing::Point(186, 291);
 				this->add->Name = L"add";
-				this->add->Size = System::Drawing::Size(75, 23);
+				this->add->Size = System::Drawing::Size(75, 33);
 				this->add->TabIndex = 3;
 				this->add->Text = L"Add";
 				this->add->UseVisualStyleBackColor = true;
@@ -134,6 +155,7 @@ namespace CPUSchedulerSimulator {
 				this->pid_t->Name = L"pid_t";
 				this->pid_t->Size = System::Drawing::Size(71, 31);
 				this->pid_t->TabIndex = 4;
+				this->pid_t->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 				// 
 				// at_t
 				// 
@@ -143,6 +165,7 @@ namespace CPUSchedulerSimulator {
 				this->at_t->Name = L"at_t";
 				this->at_t->Size = System::Drawing::Size(71, 31);
 				this->at_t->TabIndex = 5;
+				this->at_t->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 				// 
 				// bt_t
 				// 
@@ -152,12 +175,15 @@ namespace CPUSchedulerSimulator {
 				this->bt_t->Name = L"bt_t";
 				this->bt_t->Size = System::Drawing::Size(71, 31);
 				this->bt_t->TabIndex = 6;
+				this->bt_t->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 				// 
 				// save
 				// 
+				this->save->Font = (gcnew System::Drawing::Font(L"Ubuntu Mono", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+					static_cast<System::Byte>(0)));
 				this->save->Location = System::Drawing::Point(94, 291);
 				this->save->Name = L"save";
-				this->save->Size = System::Drawing::Size(75, 23);
+				this->save->Size = System::Drawing::Size(75, 33);
 				this->save->TabIndex = 7;
 				this->save->Text = L"Save";
 				this->save->UseVisualStyleBackColor = true;
@@ -165,9 +191,11 @@ namespace CPUSchedulerSimulator {
 				// 
 				// clear
 				// 
+				this->clear->Font = (gcnew System::Drawing::Font(L"Ubuntu Mono", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+					static_cast<System::Byte>(0)));
 				this->clear->Location = System::Drawing::Point(12, 291);
 				this->clear->Name = L"clear";
-				this->clear->Size = System::Drawing::Size(75, 23);
+				this->clear->Size = System::Drawing::Size(75, 33);
 				this->clear->TabIndex = 8;
 				this->clear->Text = L"Clear";
 				this->clear->UseVisualStyleBackColor = true;
@@ -175,12 +203,49 @@ namespace CPUSchedulerSimulator {
 				// 
 				// tb
 				// 
+				this->tb->AllowUserToAddRows = false;
+				this->tb->AllowUserToDeleteRows = false;
+				this->tb->AllowUserToResizeColumns = false;
+				this->tb->AllowUserToResizeRows = false;
+				dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+				this->tb->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+				this->tb->BorderStyle = System::Windows::Forms::BorderStyle::None;
+				this->tb->CellBorderStyle = System::Windows::Forms::DataGridViewCellBorderStyle::SingleVertical;
+				dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+				dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Control;
+				dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Ubuntu Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+					static_cast<System::Byte>(0)));
+				dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::WindowText;
+				dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+				dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+				dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+				this->tb->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 				this->tb->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 				this->tb->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) { this->PID, this->AT, this->BT });
+				dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+				dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Window;
+				dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+					System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+				dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::ControlText;
+				dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+				dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+				dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+				this->tb->DefaultCellStyle = dataGridViewCellStyle3;
 				this->tb->EditMode = System::Windows::Forms::DataGridViewEditMode::EditProgrammatically;
 				this->tb->Location = System::Drawing::Point(13, 12);
 				this->tb->Name = L"tb";
+				this->tb->ReadOnly = true;
+				dataGridViewCellStyle4->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+				dataGridViewCellStyle4->BackColor = System::Drawing::SystemColors::Control;
+				dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Ubuntu Mono", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+					static_cast<System::Byte>(0)));
+				dataGridViewCellStyle4->ForeColor = System::Drawing::SystemColors::WindowText;
+				dataGridViewCellStyle4->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+				dataGridViewCellStyle4->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+				dataGridViewCellStyle4->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+				this->tb->RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
 				this->tb->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+				this->tb->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::CellSelect;
 				this->tb->Size = System::Drawing::Size(248, 236);
 				this->tb->TabIndex = 10;
 				// 
@@ -195,7 +260,7 @@ namespace CPUSchedulerSimulator {
 				// 
 				// AT
 				// 
-				this->AT->HeaderText = L"AT";
+				this->AT->HeaderText = L"  AT";
 				this->AT->Name = L"AT";
 				this->AT->ReadOnly = true;
 				this->AT->Resizable = System::Windows::Forms::DataGridViewTriState::False;
@@ -204,7 +269,7 @@ namespace CPUSchedulerSimulator {
 				// BT
 				// 
 				this->BT->FillWeight = 50;
-				this->BT->HeaderText = L"BT";
+				this->BT->HeaderText = L"  BT";
 				this->BT->Name = L"BT";
 				this->BT->ReadOnly = true;
 				this->BT->Resizable = System::Windows::Forms::DataGridViewTriState::False;

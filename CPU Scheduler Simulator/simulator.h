@@ -2,6 +2,7 @@
 #include "vector"
 #include "cpuschalgo"
 #include "string"
+#include "algorithm"
 namespace CPUSchedulerSimulator {
 
 	using namespace System;
@@ -58,14 +59,9 @@ namespace CPUSchedulerSimulator {
 	private: System::Windows::Forms::TextBox^ avgrt;
 	private: System::Windows::Forms::TextBox^ avgwt;
 	private: System::Windows::Forms::TextBox^ avgtat;
-	public:
+	private: System::Windows::Forms::Label^ tql;
 
-
-
-
-
-
-
+	
 
 	public:
 
@@ -104,8 +100,125 @@ namespace CPUSchedulerSimulator {
 				}
 				
 			}
-			
+			avgrt->Text = a1.get_avg_rt().ToString();
+			avgwt->Text = a1.get_avg_wt().ToString();
+			avgtat->Text = a1.get_avg_tat().ToString();
 		}
+
+		void psjf() {
+			sjf a2(*table_in);
+			*table_sjf = a2.perform_sjf();
+			*gc_sjf = a2.get_gantt_chart();
+			for (int i = 0; i < table_sjf->size(); i++) {
+				System::String^ d1 = "" + table_sjf->at(i).get_ID();
+				System::String^ d2 = "" + table_sjf->at(i).get_AT();
+				System::String^ d3 = "" + table_sjf->at(i).get_BT();
+				System::String^ d4 = "" + table_sjf->at(i).get_CT();
+				System::String^ d5 = "" + table_sjf->at(i).get_RT();
+				System::String^ d6 = "" + table_sjf->at(i).get_WT();
+				System::String^ d7 = "" + table_sjf->at(i).get_TAT();
+				opt->Rows->Add(d1, d2, d3, d4, d5, d6, d7);
+			}
+
+			for (int i = 0; i < gc_sjf->size() + 1; i++) {
+				System::String^ d1 = "" + i;
+				gc->Columns->Add(d1, d1);
+			}
+			gc->Rows->Add();
+
+			for (int i = 0; i < gc_sjf->size(); i++) {
+				if (gc_sjf->at(i) != -1) {
+					gc->Rows[0]->Cells[i]->Value = "P" + gc_sjf->at(i) + "  ";
+				}
+				else {
+					gc->Rows[0]->Cells[i]->Value = "Idle ";
+				}
+
+			}
+			avgrt->Text = a2.get_avg_rt().ToString();
+			avgwt->Text = a2.get_avg_wt().ToString();
+			avgtat->Text = a2.get_avg_tat().ToString();
+		}
+
+		void psrtf() {
+			srtf a3(*table_in);
+			*table_srtf = a3.perform_srtf();
+			*gc_srtf = a3.get_gantt_chart();
+			for (int i = 0; i < table_srtf->size(); i++) {
+				System::String^ d1 = "" + table_srtf->at(i).get_ID();
+				System::String^ d2 = "" + table_srtf->at(i).get_AT();
+				System::String^ d3 = "" + table_srtf->at(i).get_BT();
+				System::String^ d4 = "" + table_srtf->at(i).get_CT();
+				System::String^ d5 = "" + table_srtf->at(i).get_RT();
+				System::String^ d6 = "" + table_srtf->at(i).get_WT();
+				System::String^ d7 = "" + table_srtf->at(i).get_TAT();
+				opt->Rows->Add(d1, d2, d3, d4, d5, d6, d7);
+			}
+
+			for (int i = 0; i < gc_srtf->size() + 1; i++) {
+				System::String^ d1 = "" + i;
+				gc->Columns->Add(d1, d1);
+			}
+			gc->Rows->Add();
+
+			for (int i = 0; i < gc_srtf->size(); i++) {
+				if (gc_srtf->at(i) != -1) {
+					gc->Rows[0]->Cells[i]->Value = "P" + gc_srtf->at(i) + "  ";
+				}
+				else {
+					gc->Rows[0]->Cells[i]->Value = "Idle ";
+				}
+
+			}
+			avgrt->Text = a3.get_avg_rt().ToString();
+			avgwt->Text = a3.get_avg_wt().ToString();
+			avgtat->Text = a3.get_avg_tat().ToString();
+		}
+
+		void prra(int tq) {
+			roundrobin a4(*table_in,tq);
+			*table_rra = a4.perform_roundrobin();
+			*gc_rra = a4.get_gantt_chart();
+			for (int i = 0; i < table_rra->size(); i++) {
+				System::String^ d1 = "" + table_rra->at(i).get_ID();
+				System::String^ d2 = "" + table_rra->at(i).get_AT();
+				System::String^ d3 = "" + table_rra->at(i).get_BT();
+				System::String^ d4 = "" + table_rra->at(i).get_CT();
+				System::String^ d5 = "" + table_rra->at(i).get_RT();
+				System::String^ d6 = "" + table_rra->at(i).get_WT();
+				System::String^ d7 = "" + table_rra->at(i).get_TAT();
+				opt->Rows->Add(d1, d2, d3, d4, d5, d6, d7);
+			}
+
+			for (int i = 0; i < gc_rra->size() + 1; i++) {
+				System::String^ d1 = "" + i;
+				gc->Columns->Add(d1, d1);
+			}
+			gc->Rows->Add();
+
+			for (int i = 0; i < gc_rra->size(); i++) {
+				if (gc_rra->at(i) != -1) {
+					gc->Rows[0]->Cells[i]->Value = "P" + gc_rra->at(i) + "  ";
+				}
+				else {
+					gc->Rows[0]->Cells[i]->Value = "Idle ";
+				}
+
+			}
+			avgrt->Text = a4.get_avg_rt().ToString();
+			avgwt->Text = a4.get_avg_wt().ToString();
+			avgtat->Text = a4.get_avg_tat().ToString();
+		}
+
+		void sTQL(int tq) {
+			String^ m = "Time Quantum : " + tq;
+			tql->Text = m;
+			tql->Visible = true;
+		}
+		void hTQL() {
+			tql->Visible = false;
+		}
+
 	
 
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ PID;
@@ -120,6 +233,12 @@ namespace CPUSchedulerSimulator {
 		{
 			table_fcfs = new std::vector<process>();
 			gc_fcfs = new std::vector<int>();
+			table_sjf = new std::vector<process>();
+			gc_sjf = new std::vector<int>();
+			table_srtf = new std::vector<process>();
+			gc_srtf = new std::vector<int>();
+			table_rra = new std::vector<process>();
+			gc_rra = new std::vector<int>();
 			InitializeComponent();
 			table_in = CPUSchedulerSimulator::createprocesstable::t;
 		}
@@ -186,6 +305,7 @@ protected:
 			this->avgrt = (gcnew System::Windows::Forms::TextBox());
 			this->avgwt = (gcnew System::Windows::Forms::TextBox());
 			this->avgtat = (gcnew System::Windows::Forms::TextBox());
+			this->tql = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->opt))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gc))->BeginInit();
 			this->SuspendLayout();
@@ -193,7 +313,7 @@ protected:
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(12, 37);
+			this->label1->Location = System::Drawing::Point(258, 12);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(240, 25);
 			this->label1->TabIndex = 0;
@@ -318,12 +438,16 @@ protected:
 			this->gc->AllowUserToDeleteRows = false;
 			this->gc->AllowUserToResizeColumns = false;
 			this->gc->AllowUserToResizeRows = false;
+			this->gc->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->gc->CellBorderStyle = System::Windows::Forms::DataGridViewCellBorderStyle::None;
+			this->gc->ColumnHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::None;
 			this->gc->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->gc->EditMode = System::Windows::Forms::DataGridViewEditMode::EditProgrammatically;
 			this->gc->Location = System::Drawing::Point(17, 312);
 			this->gc->MultiSelect = false;
 			this->gc->Name = L"gc";
 			this->gc->ReadOnly = true;
+			this->gc->RowHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::None;
 			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleRight;
 			dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Control;
 			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Ubuntu Mono", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -342,7 +466,7 @@ protected:
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(435, 77);
+			this->label5->Location = System::Drawing::Point(435, 89);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(168, 25);
 			this->label5->TabIndex = 6;
@@ -377,6 +501,7 @@ protected:
 			// 
 			// avgrt
 			// 
+			this->avgrt->Enabled = false;
 			this->avgrt->Location = System::Drawing::Point(608, 132);
 			this->avgrt->Name = L"avgrt";
 			this->avgrt->Size = System::Drawing::Size(193, 31);
@@ -384,6 +509,7 @@ protected:
 			// 
 			// avgwt
 			// 
+			this->avgwt->Enabled = false;
 			this->avgwt->Location = System::Drawing::Point(608, 179);
 			this->avgwt->Name = L"avgwt";
 			this->avgwt->Size = System::Drawing::Size(193, 31);
@@ -391,16 +517,30 @@ protected:
 			// 
 			// avgtat
 			// 
+			this->avgtat->Enabled = false;
 			this->avgtat->Location = System::Drawing::Point(608, 227);
 			this->avgtat->Name = L"avgtat";
 			this->avgtat->Size = System::Drawing::Size(193, 31);
 			this->avgtat->TabIndex = 12;
+			// 
+			// tql
+			// 
+			this->tql->AutoSize = true;
+			this->tql->Location = System::Drawing::Point(578, 284);
+			this->tql->Name = L"tql";
+			this->tql->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->tql->Size = System::Drawing::Size(180, 25);
+			this->tql->TabIndex = 13;
+			this->tql->Text = L"Time Quantum :";
+			this->tql->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+			this->tql->Visible = false;
 			// 
 			// simulator
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(826, 398);
+			this->Controls->Add(this->tql);
 			this->Controls->Add(this->avgtat);
 			this->Controls->Add(this->avgwt);
 			this->Controls->Add(this->avgrt);
