@@ -137,7 +137,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="process" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource" />
     <ClInclude Include="roundrobin" />
     <ClInclude Include="simulator">
       <FileType>CppForm</FileType>

@@ -44,7 +44,7 @@
     <ClInclude Include="climode">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="resource">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gui">

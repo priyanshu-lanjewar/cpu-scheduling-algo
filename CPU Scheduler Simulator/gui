@@ -1,8 +1,8 @@
+// -*- C++ -*-
 #pragma once
 
 #ifndef _GUI_
 #define _GUI_
-
 
 #ifndef _CREATEPROCESSTABLE_
 #include "createprocesstable"
@@ -25,12 +25,10 @@ namespace CPUSchedulerSimulator {
 
 
 		/// <summary>
-		/// Summary for gui
+		/// Graphical User Interface for the app
 		/// </summary>
 		public ref class gui : public System::Windows::Forms::Form
 		{
-		private:
-
 		public:
 
 			static bool ptCreated;
@@ -38,23 +36,17 @@ namespace CPUSchedulerSimulator {
 			{
 				ptCreated = false;
 				InitializeComponent();
-				//
-				//TODO: Add the constructor code here
-				//
 			}
 
 		protected:
-			/// <summary>
-			/// Clean up any resources being used.
-			/// </summary>
 			~gui()
 			{
 				if (components)
 				{
 					delete components;
 				}
-			}		private: System::Windows::Forms::Label^ title;
-		//private: System::Windows::Forms::TextBox^ msg;
+			}		
+		private: System::Windows::Forms::Label^ title;
 		private: System::Windows::Forms::Label^ label1;
 		private: System::Windows::Forms::Label^ label2;
 		private: System::Windows::Forms::Button^ creaept;
@@ -73,16 +65,9 @@ namespace CPUSchedulerSimulator {
 		protected:
 
 		private:
-			/// <summary>
-			/// Required designer variable.
-			/// </summary>
 			System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
-			/// <summary>
-			/// Required method for Designer support - do not modify
-			/// the contents of this method with the code editor.
-			/// </summary>
 			void InitializeComponent(void)
 			{
 				System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(gui::typeid));
@@ -110,7 +95,6 @@ namespace CPUSchedulerSimulator {
 				this->title->Size = System::Drawing::Size(420, 25);
 				this->title->TabIndex = 1;
 				this->title->Text = L"CPU SCHEDULING ALGORITHM SIMULATOR";
-				this->title->Click += gcnew System::EventHandler(this, &gui::label1_Click);
 				// 
 				// label1
 				// 
@@ -253,11 +237,7 @@ namespace CPUSchedulerSimulator {
 
 			}
 #pragma endregion
-		private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-			
-		}
-		private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-		}
+		
 		private: System::Void simulate_Click(System::Object^ sender, System::EventArgs^ e) {
 			if (ptCreated) {
 				if (algo->Text == "First Come First Serve") {

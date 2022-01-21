@@ -1,3 +1,4 @@
+// -*- C++ -*-
 #pragma once
 #ifndef  _CREATEPROCESSTABLE_
 #define  _CREATEPROCESSTABLE_
@@ -22,28 +23,16 @@ namespace CPUSchedulerSimulator {
 
 
 		/// <summary>
-		/// Summary for createprocesstable
+		/// Create Process Table Form
 		/// </summary>
 		public ref class createprocesstable : public System::Windows::Forms::Form
 		{
-		private:
-
-		public:
-			static std::vector<process>* t = new std::vector<process>();;
+		public:  static std::vector<process>* t = new std::vector<process>();;
 		private: System::Windows::Forms::DataGridView^ tb;
 		private: System::Windows::Forms::DataGridViewTextBoxColumn^ PID;
 		private: System::Windows::Forms::DataGridViewTextBoxColumn^ AT;
 		private: System::Windows::Forms::DataGridViewTextBoxColumn^ BT;
-
-
-
-
-
-
 		public:
-
-
-
 			static bool tableCreated = false;
 			void enableBtn() {
 				add->Enabled = true;
@@ -60,9 +49,10 @@ namespace CPUSchedulerSimulator {
 				tableCreated = false;
 				
 			}
+
 		public:	createprocesstable(void)
 			{
-				//t = 
+				
 				InitializeComponent();
 				for (int i = 0; i < t->size(); i++) {
 					System::String^ d1 = "" + t->at(i).get_ID();
@@ -70,55 +60,27 @@ namespace CPUSchedulerSimulator {
 					System::String^ d3 = "" + t->at(i).get_BT();
 					tb->Rows->Add(d1, d2, d3);
 				}
-				//
+			
 			}
 
 		protected:
-			/// <summary>
-			/// Clean up any resources being used.
-			/// </summary>
 			~createprocesstable()
 			{
 				if (components)
 				{
+					delete t;
 					delete components;
 				}
 			}
-
-		protected:
-
-		protected:
-
-
-
-
-
 		private: System::Windows::Forms::Button^ add;
 		private: System::Windows::Forms::TextBox^ at_t;
 		private: System::Windows::Forms::TextBox^ bt_t;
-
-			   
-
 		private: System::Windows::Forms::TextBox^ pid_t;
 		private: System::Windows::Forms::Button^ save;
 		private: System::Windows::Forms::Button^ clear;
-
-
-
-
-		protected:
-
-		private:
-			/// <summary>
-			/// Required designer variable.
-			/// </summary>
-			System::ComponentModel::Container^ components;
+		private: System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
-			/// <summary>
-			/// Required method for Designer support - do not modify
-			/// the contents of this method with the code editor.
-			/// </summary>
 			void InitializeComponent(void)
 			{
 				System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());

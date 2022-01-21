@@ -1,3 +1,4 @@
+// -*- C++ -*-
 #pragma once
 #ifndef _SIMULATOR_
 #define _SIMULATOR_
@@ -20,7 +21,7 @@ namespace CPUSchedulerSimulator {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Summary for simulator
+	/// Simulato window
 	/// </summary>
 	public ref class simulator : public System::Windows::Forms::Form
 	{
@@ -67,11 +68,6 @@ namespace CPUSchedulerSimulator {
 	private: System::Windows::Forms::TextBox^ avgwt;
 	private: System::Windows::Forms::TextBox^ avgtat;
 	private: System::Windows::Forms::Label^ tql;
-
-	
-
-	public:
-
 	public:
 
 		/// gantt chart for rra
@@ -225,9 +221,6 @@ namespace CPUSchedulerSimulator {
 		void hTQL() {
 			tql->Visible = false;
 		}
-
-	
-
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ PID;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ AT;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ BT;
@@ -252,40 +245,27 @@ namespace CPUSchedulerSimulator {
 		
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		~simulator()
 		{
 			if (components)
 			{
-				
+				delete table_in;
+				delete table_fcfs;
+				delete table_sjf;
+				delete table_srtf;
+				delete table_rra;
+				delete gc_fcfs;
+				delete gc_sjf;
+				delete gc_srtf;
+				delete gc_rra;
 				delete components;
 			}
+			
 		}
-protected:
-
-protected:
-
-	protected:
-
-	protected:
-
-	protected:
-
-	protected:
-
-	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		System::ComponentModel::Container ^components;
+	private: System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
+
 		void InitializeComponent(void)
 		{
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
