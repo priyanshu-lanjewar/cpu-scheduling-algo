@@ -215,8 +215,10 @@ namespace CPUSchedulerSimulator {
 				if (algo->Text == "First Come First Serve") {
 					std::string g = "g";
 					CPUSchedulerSimulator::simulator s;
-					CPUSchedulerSimulator::simulator::label1->Text = "First Come First Serve CPU Scheduling Algorithm";
-					CPUSchedulerSimulator::simulator::pfcfs();
+					//CPUSchedulerSimulator::simulator::label1->Text = "First Come First Serve";
+					//CPUSchedulerSimulator::simulator::pfcfs();
+					s.label1->Text = "First Come First Serve";
+					s.pfcfs();
 					s.ShowDialog();
 				}
 				else if (algo->Text == "Shortest Job First") {
