@@ -282,6 +282,8 @@ std::vector<process>  sjf::perform_sjf() {
 	/// Computing Average Turn Around Time
 	compute_ATAT();
 
+	std::sort(table.begin(), table.end(), cmpID());
+
 	return table;
 }
 

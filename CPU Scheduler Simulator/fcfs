@@ -220,6 +220,8 @@ std::vector<process>  fcfs::perform_fcfs() {
 
 	std::cout << std::endl;
 
+	std::sort(table.begin(), table.end(), cmpID());
+
 	return table;
 }
 

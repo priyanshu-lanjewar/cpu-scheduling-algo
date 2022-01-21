@@ -297,6 +297,8 @@ std::vector<process>  srtf::perform_srtf() {
 	/// Computing Average Turn Around Time
 	compute_ATAT();
 
+	std::sort(table.begin(), table.end(), cmpID());
+
 	return table;
 }
 
