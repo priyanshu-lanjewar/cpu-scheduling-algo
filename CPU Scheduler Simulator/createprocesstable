@@ -1,11 +1,14 @@
 #pragma once
 #ifndef  _CREATEPROCESSTABLE_
 #define  _CREATEPROCESSTABLE_
-
-#include "gui.h"
-//#endif
+#ifndef _CPUSCHALGO_
 #include "cpuschalgo"
+#endif // !_CPUSCHALGO_
+
+#ifndef _VECTOR_
 #include "vector"
+#endif // !_VECTOR_
+
 namespace CPUSchedulerSimulator {
 	
 		using namespace System;

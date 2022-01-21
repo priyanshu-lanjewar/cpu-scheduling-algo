@@ -1,8 +1,15 @@
 #pragma once
+#ifndef _SIMULATOR_
+#define _SIMULATOR_
+
+#ifndef _VECTOR_
 #include "vector"
+#endif // !_VECTOR_
+
+#ifndef _CPUSCHALGO_
 #include "cpuschalgo"
-#include "string"
-#include "algorithm"
+#endif // !_CPUSCHALGO_
+
 namespace CPUSchedulerSimulator {
 
 	using namespace System;
@@ -252,6 +259,7 @@ namespace CPUSchedulerSimulator {
 		{
 			if (components)
 			{
+				
 				delete components;
 			}
 		}
@@ -574,3 +582,4 @@ private: System::Void simulator_Load(System::Object^ sender, System::EventArgs^ 
 }
 };
 }
+#endif // !_SIMULATOR_

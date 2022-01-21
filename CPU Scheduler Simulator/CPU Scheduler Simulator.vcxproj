@@ -128,18 +128,18 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </ClInclude>
     <ClInclude Include="cpuschalgo" />
-    <ClInclude Include="createprocesstable.h">
+    <ClInclude Include="createprocesstable">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="fcfs" />
     <ClInclude Include="gcp" />
-    <ClInclude Include="gui.h">
+    <ClInclude Include="gui">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="process" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="roundrobin" />
-    <ClInclude Include="simulator.h">
+    <ClInclude Include="simulator">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="sjf" />
@@ -153,13 +153,13 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="createprocesstable.resx">
-      <DependentUpon>createprocesstable.h</DependentUpon>
+      <DependentUpon>createprocesstable</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui.resx">
-      <DependentUpon>gui.h</DependentUpon>
+      <DependentUpon>gui</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="simulator.resx">
-      <DependentUpon>simulator.h</DependentUpon>
+      <DependentUpon>simulator</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

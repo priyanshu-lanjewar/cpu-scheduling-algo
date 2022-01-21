@@ -1,12 +1,19 @@
 #pragma once
+
 #ifndef _GUI_
 #define _GUI_
+
+
 #ifndef _CREATEPROCESSTABLE_
-#include "createprocesstable.h"
-//#include "createprocesstable.h"
+#include "createprocesstable"
 #endif // !_CREATEPROCESSTABLE_
-#include "simulator.h"
+#ifndef _SIMULATOR_
+#include "simulator"
+#endif // !_SIMULATOR_
+#ifndef _STDLIB_H_
 #include "stdlib.h"
+#endif // !_STDLIB_H_
+
 #using <Microsoft.VisualBasic.dll>
 namespace CPUSchedulerSimulator {
 		using namespace System;
@@ -51,22 +58,15 @@ namespace CPUSchedulerSimulator {
 		private: System::Windows::Forms::Label^ label1;
 		private: System::Windows::Forms::Label^ label2;
 		private: System::Windows::Forms::Button^ creaept;
-
 		private: System::Windows::Forms::Button^ simulate;
-
-
-		private: System::Windows::Forms::Button^ button2;
-		private: System::Windows::Forms::Button^ button3;
+		private: System::Windows::Forms::Button^ edit_btn;
+		private: System::Windows::Forms::Button^ view_btn;
 		private: System::Windows::Forms::ComboBox^ algo;
 		private: System::Windows::Forms::StatusStrip^ statusStrip1;
 		private: System::Windows::Forms::ToolStripStatusLabel^ msg;
-
-
 		private: System::Windows::Forms::ToolStripMenuItem^ testToolStripMenuItem1;
 		private: System::Windows::Forms::ToolStripMenuItem^ testToolStripMenuItem;
 		private: System::Windows::Forms::Button^ button1;
-
-
 		private: System::Windows::Forms::ToolStripStatusLabel^ toolStripStatusLabel1;
 
 
@@ -91,8 +91,8 @@ namespace CPUSchedulerSimulator {
 				this->label2 = (gcnew System::Windows::Forms::Label());
 				this->creaept = (gcnew System::Windows::Forms::Button());
 				this->simulate = (gcnew System::Windows::Forms::Button());
-				this->button2 = (gcnew System::Windows::Forms::Button());
-				this->button3 = (gcnew System::Windows::Forms::Button());
+				this->edit_btn = (gcnew System::Windows::Forms::Button());
+				this->view_btn = (gcnew System::Windows::Forms::Button());
 				this->algo = (gcnew System::Windows::Forms::ComboBox());
 				this->statusStrip1 = (gcnew System::Windows::Forms::StatusStrip());
 				this->msg = (gcnew System::Windows::Forms::ToolStripStatusLabel());
@@ -150,25 +150,27 @@ namespace CPUSchedulerSimulator {
 				this->simulate->UseVisualStyleBackColor = true;
 				this->simulate->Click += gcnew System::EventHandler(this, &gui::simulate_Click);
 				// 
-				// button2
+				// edit_btn
 				// 
-				this->button2->Location = System::Drawing::Point(196, 102);
-				this->button2->Name = L"button2";
-				this->button2->Size = System::Drawing::Size(155, 38);
-				this->button2->TabIndex = 9;
-				this->button2->Text = L"Edit";
-				this->button2->UseVisualStyleBackColor = true;
-				this->button2->Click += gcnew System::EventHandler(this, &gui::button2_Click);
+				this->edit_btn->Enabled = false;
+				this->edit_btn->Location = System::Drawing::Point(196, 102);
+				this->edit_btn->Name = L"edit_btn";
+				this->edit_btn->Size = System::Drawing::Size(155, 38);
+				this->edit_btn->TabIndex = 9;
+				this->edit_btn->Text = L"Edit";
+				this->edit_btn->UseVisualStyleBackColor = true;
+				this->edit_btn->Click += gcnew System::EventHandler(this, &gui::button2_Click);
 				// 
-				// button3
+				// view_btn
 				// 
-				this->button3->Location = System::Drawing::Point(379, 102);
-				this->button3->Name = L"button3";
-				this->button3->Size = System::Drawing::Size(155, 38);
-				this->button3->TabIndex = 10;
-				this->button3->Text = L"View";
-				this->button3->UseVisualStyleBackColor = true;
-				this->button3->Click += gcnew System::EventHandler(this, &gui::button3_Click);
+				this->view_btn->Enabled = false;
+				this->view_btn->Location = System::Drawing::Point(379, 102);
+				this->view_btn->Name = L"view_btn";
+				this->view_btn->Size = System::Drawing::Size(155, 38);
+				this->view_btn->TabIndex = 10;
+				this->view_btn->Text = L"View";
+				this->view_btn->UseVisualStyleBackColor = true;
+				this->view_btn->Click += gcnew System::EventHandler(this, &gui::button3_Click);
 				// 
 				// algo
 				// 
@@ -231,8 +233,8 @@ namespace CPUSchedulerSimulator {
 				this->Controls->Add(this->button1);
 				this->Controls->Add(this->statusStrip1);
 				this->Controls->Add(this->algo);
-				this->Controls->Add(this->button3);
-				this->Controls->Add(this->button2);
+				this->Controls->Add(this->view_btn);
+				this->Controls->Add(this->edit_btn);
 				this->Controls->Add(this->simulate);
 				this->Controls->Add(this->creaept);
 				this->Controls->Add(this->label2);
@@ -252,8 +254,7 @@ namespace CPUSchedulerSimulator {
 			}
 #pragma endregion
 		private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-			system("1");
-			//_exit(0);
+			
 		}
 		private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 		}
@@ -313,6 +314,8 @@ namespace CPUSchedulerSimulator {
 			ptCreated = CPUSchedulerSimulator::createprocesstable::tableCreated;
 			if (ptCreated) {
 				msg->Text = "Process Table Created Successfully.";
+				edit_btn->Enabled = true;
+				view_btn->Enabled = true;
 			}
 			else {
 				msg->Text = "No Process Table Created";
@@ -346,3 +349,4 @@ private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^
 };
 }
 #endif // !_GUI_
+

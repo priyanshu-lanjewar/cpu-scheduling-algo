@@ -1,5 +1,5 @@
 
-#include"gui.h"
+#include"gui"
 #include "iostream"
 #include "climode"
 
