@@ -96,6 +96,23 @@ public:
 	/// <returns>Gantt Chart</returns>
 	std::vector<int> get_gantt_chart();
 
+	/// <summary>
+	/// Getter Function For Average Response Time
+	/// </summary>
+	/// <returns>Average Response Time</returns>
+	double get_avg_rt();
+
+	/// <summary>
+	/// Getter Function For Average Waiting Time
+	/// </summary>
+	/// <returns>Average Waiting Time</returns>
+	double get_avg_wt();
+
+	/// <summary>
+	/// Getter Function For Average Turn Around Time
+	/// </summary>
+	/// <returns>Average Turn Around Time</returns>
+	double get_avg_tat();
 
 	/// <summary>
 	/// Function to Print Statistics like Average Waiting Time, Average Response Time and Average Turn Around Time.
@@ -270,6 +287,18 @@ std::vector<process>  sjf::perform_sjf() {
 
 std::vector<int> sjf::get_gantt_chart() {
 	return gantt_chart;
+}
+
+double sjf::get_avg_rt() {
+	return ART;
+}
+
+double sjf::get_avg_wt() {
+	return AWT;
+}
+
+double sjf::get_avg_tat() {
+	return ATAT;
 }
 
 void print_stats(sjf sj) {
