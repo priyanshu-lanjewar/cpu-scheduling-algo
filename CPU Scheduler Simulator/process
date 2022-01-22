@@ -151,7 +151,7 @@ public:
 	/// <param name="process_count">: Number Of Process</param>
 	/// <param name="">processes : process1, process2, process3....</param>
 	/// <returns>Average Waiting Time of inputed process</returns>
-	friend double average_WT(int process_count, ...);
+	//friend double average_WT(int process_count, ...);
 
 	/// <summary>
 	/// Function to Calculate Average Response Time
@@ -159,7 +159,7 @@ public:
 	/// <param name="process_count">: Number Of Process</param>
 	/// <param name="">processes : process1, process2, process3....</param>
 	/// <returns>Average Response Time of inputed process</returns>
-	friend double average_RT(int process_count, ...);
+	//friend double average_RT(int process_count, ...);
 
 	/// <summary>
 	/// Function to Calculate Average Turn Around Time
@@ -167,7 +167,7 @@ public:
 	/// <param name="process_count">: Number Of Process</param>
 	/// <param name="">processes : process1, process2, process3....</param>
 	/// <returns>Average Turn Around Time of inputed process</returns>
-	friend double average_TAT(int process_count, ...);
+	//friend double average_TAT(int process_count, ...);
 	
 	/// <summary>
 	/// Function to Calculate Average Waiting Time
@@ -299,7 +299,7 @@ int process::get_TAT()
 {
 	return TAT;
 }
-
+/*
 double average_WT(int process_count, ...)
 {
 	va_list vl;
@@ -341,7 +341,7 @@ double average_TAT(int process_count, ...)
 	va_end(vl);
 	return sum / process_count;
 }
-
+*/
 double average_WT(std::vector<process> p) {
 	int i = 0;
 	double sum = 0.0;

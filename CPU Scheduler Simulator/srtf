@@ -164,7 +164,7 @@ std::vector<process>  srtf::perform_srtf() {
 	}
 
 	/// storing size of table in c which is also equal to number of process
-	int c = table.size();
+	size_t c = table.size();
 
 
 	table.clear();
@@ -173,7 +173,7 @@ std::vector<process>  srtf::perform_srtf() {
 	while (c) {
 
 		/// Storing size/ number of process present in tq into tqs
-		int tqs = tq.size();
+		size_t tqs = tq.size();
 
 		/// checking arrival time of all process in tq
 		for (int i = 0; i < tqs; i++) {
@@ -214,7 +214,7 @@ std::vector<process>  srtf::perform_srtf() {
 		/// if none of them empty => process available to execute as well as push in rq 
 		else
 		{
-			int k = aq.size();
+			size_t k = aq.size();
 			for (int i = 0; i < k; i++) {
 				process p = aq.front();
 

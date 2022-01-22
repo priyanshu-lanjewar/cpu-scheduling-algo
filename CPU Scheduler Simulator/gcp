@@ -9,6 +9,7 @@
 #ifndef _VECTOR_
 #include "vector"
 #endif // !_VECTOR_
+#include "windows.h"
 
 /// <summary>
 /// Function to Print Gantt Chart
@@ -30,12 +31,12 @@ void print_gantt_chart(std::vector<int> gc) {
                 printf("| P%d ", gc[i]);
             else
                 printf("|IDLE");
-            _sleep(1000);
+            Sleep(1000);
         }
         while (m++<10)
         {
             printf("|IDLE");
-            _sleep(1000);
+            Sleep(1000);
         }
         std::cout << "|" << std::endl << std::endl;
         
